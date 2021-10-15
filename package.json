@@ -1,0 +1,28 @@
+{
+    "name": "aipa",
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview",
+        "prepare": "husky install"
+    },
+    "dependencies": {
+        "element-plus": "^1.1.0-beta.19",
+        "unplugin-vue-components": "^0.15.6",
+        "vue": "^3.2.16",
+        "vue-router": "4",
+        "vuex": "^4.0.2"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^1.9.3",
+        "husky": "^7.0.2",
+        "lint-staged": "^11.2.3",
+        "prettier": "2.4.1",
+        "sass": "^1.42.1",
+        "vite": "^2.6.4"
+    },
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
+    }
+}
