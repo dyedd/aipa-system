@@ -1,29 +1,62 @@
 <script setup>
-import { reactive } from "@vue/reactivity"
+import { reactive, ref } from "@vue/reactivity"
+import {
+    fetchSellerInfo,
+    generateModifiableSellerInfo,
+    pushSellerInfo,
+} from "../../utils/sellerInfo.js"
 
-const sellerBasicInfo = reactive({
-    name: "江南皮革厂", //type: str
-    joinTime: "2021-01-01", //type: TBD
-    location: "浙江 温州", //type: str
-    // 商品数量
-    itemCount: 0, //type: number
-    // 销售量
-    salesVolume: 0, //type: number
-    // 1:1 图片
-    profilePicture: "/example/shop-profile-pic.jpg", //type: str
-    //简介
-    description: "", //type: str
-})
+let editorVisible = ref(false)
+
+const sellerInfo = reactive(fetchSellerInfo())
+
+const modifedInfo = reactive(generateModifiableSellerInfo(sellerInfo))
+
+function pushInfo() {
+    Object.assign(sellerInfo, pushSellerInfo(modifedInfo))
+}
+
+function pushHandler() {
+    pushInfo()
+    editorVisible = false
+}
 </script>
 
 <template>
     <div class="seller-info-container">
-        <h1 class="title">商户信息/管理</h1>
+        <el-dialog v-model="editorVisible" title="编辑商户信息" width="80rem">
+            <el-form label-width="10rem">
+                <el-form-item label="商户名称">
+                    <el-input v-model="modifedInfo.name"></el-input>
+                </el-form-item>
+                <el-form-item label="账户地址">
+                    <el-input v-model="modifedInfo.location"></el-input>
+                </el-form-item>
+                <el-form-item label="账户介绍">
+                    <el-input v-model="modifedInfo.description"></el-input>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="editorVisible = false">取消</el-button>
+                    <el-button type="primary" @click="pushHandler()"
+                        >提交</el-button
+                    >
+                </span>
+            </template>
+        </el-dialog>
+
+        <div class="top-container">
+            <h1 class="title">商户信息/管理</h1>
+            <el-button type="success" @click="editorVisible = true"
+                >编辑信息</el-button
+            >
+        </div>
         <div class="innercontainer">
             <div class="pic-container">
                 <el-image
                     fit="cover"
-                    :src="sellerBasicInfo.profilePicture"
+                    :src="sellerInfo.profilePicture"
                     class="profile-picture"
                 ></el-image>
                 <label class="uploader" for="seller-profile-pic-upload"
@@ -38,36 +71,30 @@ const sellerBasicInfo = reactive({
             <div class="text-container">
                 <div class="info-item">
                     <span class="info-key">商店名</span
-                    ><span class="info-value">{{ sellerBasicInfo.name }}</span>
+                    ><span class="info-value">{{ sellerInfo.name }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-key">加入时间</span
-                    ><span class="info-value">{{
-                        sellerBasicInfo.joinTime
-                    }}</span>
+                    ><span class="info-value">{{ sellerInfo.joinTime }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-key">产地</span
-                    ><span class="info-value">{{
-                        sellerBasicInfo.location
-                    }}</span>
+                    ><span class="info-value">{{ sellerInfo.location }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-key">商品数量</span
-                    ><span class="info-value">{{
-                        sellerBasicInfo.itemCount
-                    }}</span>
+                    ><span class="info-value">{{ sellerInfo.itemCount }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-key">销售量</span
                     ><span class="info-value">{{
-                        sellerBasicInfo.salesVolume
+                        sellerInfo.salesVolume
                     }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-key">简介</span
                     ><span class="info-value">{{
-                        sellerBasicInfo.description
+                        sellerInfo.description
                     }}</span>
                 </div>
             </div>
@@ -76,18 +103,19 @@ const sellerBasicInfo = reactive({
 </template>
 
 <style lang="scss" scoped>
+@import "./style/common.scss";
 #seller-profile-pic-upload {
     display: none;
 }
 
 .seller-info-container {
-    padding: 2rem;
-    box-sizing: border-box;
-
-    .title {
-        color: $primary-color;
-        font-size: 2rem;
+    @include card;
+    .top-container {
+        @include space-between;
         margin-bottom: 2rem;
+        .title {
+            @include common-title;
+        }
     }
 
     .innercontainer {
@@ -98,17 +126,11 @@ const sellerBasicInfo = reactive({
             position: relative;
 
             .profile-picture {
-                height: 200px;
-                width: 200px;
+                height: 250px;
+                width: 250px;
             }
             .uploader {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
+                @include fullsize;
 
                 font-size: 1.4rem;
                 justify-content: center;
@@ -125,7 +147,7 @@ const sellerBasicInfo = reactive({
         }
 
         .text-container {
-            margin-left: 4rem;
+            margin-left: 6rem;
             .info-item {
                 margin-bottom: 1rem;
 

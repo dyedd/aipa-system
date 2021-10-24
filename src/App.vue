@@ -29,7 +29,7 @@
 html,
 body,
 #app {
-    height: 100%;
+    min-height: 100%;
 }
 .el-header {
     padding: 0 10rem !important;
