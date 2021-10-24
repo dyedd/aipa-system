@@ -42,13 +42,14 @@ const input = ref("")
     </el-row>
 </template>
 <style lang="scss" scoped>
+@import "../assets/styles/constants.scss";
 .container {
-    height: 6rem;
+    height: $header-height;
     background-color: #fff;
     box-shadow: 0 0.3rem 0.4rem rgb(26 26 26 / 10%);
     width: 100%;
     .header {
-        width: 120rem;
+        width: $header-width;
         display: flex;
         margin: 0 auto;
     }
