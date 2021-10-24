@@ -11,7 +11,7 @@ const input = ref("")
     <el-row
         justify="space-between"
         align="middle"
-        class="container"
+        class="wrapper"
         tag="section"
     >
         <div class="header">
@@ -42,7 +42,7 @@ const input = ref("")
     </el-row>
 </template>
 <style lang="scss" scoped>
-.container {
+.wrapper {
     height: 6rem;
     background-color: #fff;
     box-shadow: 0 0.3rem 0.4rem rgb(26 26 26 / 10%);

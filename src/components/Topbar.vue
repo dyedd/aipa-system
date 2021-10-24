@@ -6,7 +6,7 @@
                 <el-col :span="6">
                     <p class="welcome-mes">欢迎来到利民宝 ！</p>
                 </el-col>
-                <el-col :span="6" class="right-info">
+                <el-col :span="4" class="right-info">
                     <el-button type="text">
                         <Icon
                             name="User"
