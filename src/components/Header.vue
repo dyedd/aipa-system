@@ -46,7 +46,7 @@ const input = ref("")
 .container {
     height: $header-height;
     background-color: #fff;
-    box-shadow: 0 0.3rem 0.4rem rgb(26 26 26 / 10%);
+    box-shadow: $header-boxshadow;
     width: 100%;
     .header {
         width: $header-width;

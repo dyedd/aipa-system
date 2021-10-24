@@ -4,5 +4,7 @@
     ),
     $input:("focus-border":#39bf3e)
 );
+
+@import "../constants.scss";
 @import "element-plus/theme-chalk/src/index.scss";
-$text-hover: #39bf3e;
+$text-hover: $primary-color;

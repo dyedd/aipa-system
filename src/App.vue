@@ -26,6 +26,9 @@
     -moz-osx-font-smoothing: grayscale;
     background: #f5f5f5;
 }
+html, body, #app {
+    height: 100%;
+}
 .el-header {
     padding: 0 10rem !important;
 }
