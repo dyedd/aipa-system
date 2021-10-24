@@ -24,6 +24,7 @@
     font-family: Inter, Roboto, Oxygen, Fira Sans, Helvetica Neue, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #f5f5f5;
 }
 .el-header {
     padding: 0 10rem !important;

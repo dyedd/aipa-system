@@ -2,11 +2,11 @@
 <template>
     <el-container>
         <el-header>
-            <el-row justify="space-around">
+            <el-row justify="space-between">
                 <el-col :span="6">
                     <p class="welcome-mes">欢迎来到利民宝 ！</p>
                 </el-col>
-                <el-col :span="6" :offset="6" class="right-info">
+                <el-col :span="6" class="right-info">
                     <el-button type="text">
                         <Icon
                             name="User"
@@ -32,10 +32,16 @@
     </el-container>
 </template>
 <style lang="scss" scoped>
-.el-header {
+.el-container {
+    width: 100%;
     background-color: #000;
+}
+.el-header {
     height: 3.6rem;
     line-height: 3.6rem;
+    width: 120rem;
+    margin: 0 auto;
+    padding: 0 !important;
 }
 .welcome-mes {
     font-size: 1.2rem;
