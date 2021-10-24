@@ -1,10 +1,11 @@
 <script setup>
 import { reactive, ref } from "@vue/reactivity"
-import { panelData } from "../utils/panelData"
-import p1 from "../assets/carousel/1.jpg"
-import p2 from "../assets/carousel/2.jpg"
-import p3 from "../assets/carousel/3.jpg"
-import { onMounted, onUpdated } from "@vue/runtime-core"
+import { panelData } from "../../utils/panelData"
+import p1 from "../../assets/carousel/1.jpg"
+import p2 from "../../assets/carousel/2.jpg"
+import p3 from "../../assets/carousel/3.jpg"
+import { onMounted } from "@vue/runtime-core"
+import SumChart from "./SumChart.vue"
 const carouselItem = reactive([
     {
         url: "#",
@@ -31,8 +32,42 @@ const hideDetail = () => {
 }
 const navSide = ref()
 const iteamDetail = ref()
-const activeName = ref("Buyers")
-const barsItem = onMounted(() => {
+const isActive = ref(0)
+const handleBar = index => {
+    isActive.value = index
+}
+const barItem = [
+    [
+        {
+            image: "caigoudating",
+            text: "采购管理",
+        },
+        {
+            image: "dingdanguanli",
+            text: "订单管理",
+        },
+        {
+            image: "youhuiquan",
+            text: "优惠券",
+        },
+    ],
+    [
+        {
+            image: "gongyinglian",
+            text: "供应管理",
+        },
+        {
+            image: "dingdanguanli",
+            text: "订单管理",
+        },
+        {
+            image: "dianpu",
+            text: "店铺管理",
+        },
+    ],
+]
+
+onMounted(() => {
     iteamDetail.value.style.left = navSide.value.offsetWidth + "px"
     iteamDetail.value.style.top = navSide.value.offsetTop + "px"
     window.onresize = () => {
@@ -151,16 +186,35 @@ const barsItem = onMounted(() => {
                     </div>
                 </div>
                 <div class="tabs">
-                    <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane
-                            label="卖家服务"
-                            name="seller"
-                        ></el-tab-pane>
-                        <el-tab-pane
-                            label="买家服务"
-                            name="Buyers"
-                        ></el-tab-pane>
-                    </el-tabs>
+                    <div class="tabs-bar">
+                        <div
+                            class="bar-item"
+                            :class="{ 'bar-active': isActive === index }"
+                            @click="handleBar(index)"
+                            v-for="(item, index) in ['买家服务', '卖家服务']"
+                            :key="item"
+                        >
+                            {{ item }}
+                        </div>
+                    </div>
+                    <div class="tabs-content">
+                        <div
+                            class="tabs-item"
+                            v-for="(detail, index) in barItem[isActive]"
+                            :key="detail"
+                        >
+                            <div class="tabs-bg">
+                                <Icon :name="detail.image" size="2.5rem"></Icon>
+                            </div>
+                            <div class="tabs-text">{{ detail.text }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="chart-title">交易总价</div>
+                    <div class="chart-container">
+                        <SumChart></SumChart>
+                    </div>
                 </div>
             </div>
         </el-col>
@@ -169,9 +223,6 @@ const barsItem = onMounted(() => {
 <style lang="scss" scoped>
 .nav {
     margin-top: 2rem;
-    width: 120rem;
-    margin-left: auto;
-    margin-right: auto;
 }
 .nav-side {
     position: relative;
@@ -286,7 +337,6 @@ const barsItem = onMounted(() => {
 .box-card {
     background-color: #fff;
     height: 54rem;
-    width: 28.5rem;
     & .card-header {
         border-bottom: 0.1rem solid #f4f4f4;
         height: 12.3rem;
@@ -308,10 +358,10 @@ const barsItem = onMounted(() => {
         font-size: 1.4rem !important;
     }
     & .el-button:first-child {
-        padding: 0.7rem 3.4rem;
+        padding: 0.7rem 2.4rem;
     }
     & .el-button:nth-child(2) {
-        padding: 0.7rem 2.7rem;
+        padding: 0.7rem 1.7rem;
     }
 }
 .home-recommendCard {
@@ -334,8 +384,77 @@ const barsItem = onMounted(() => {
     }
 }
 .tabs {
-    margin: 0 47px;
-    width: calc(100% - 94px);
-    text-align: center;
+    margin: 0 2.7rem;
+    width: calc(100% - 5.4rem);
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #f4f4f4;
+    & .tabs-bar {
+        margin: 1.9rem 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & .bar-item {
+            cursor: pointer;
+            font-family: PingFangSC-Medium;
+            font-size: 1.3rem;
+            color: #444;
+            letter-spacing: 0;
+            text-align: center;
+            font-weight: 600;
+            width: 7.6rem;
+            padding-bottom: 1rem;
+            border-bottom: 0.2rem solid #fff;
+        }
+        & .bar-item.bar-active {
+            border-bottom: 0.2rem solid #39bf3e !important;
+        }
+    }
+    & .tabs-content {
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & .tabs-item {
+            width: 4.8rem;
+            cursor: pointer;
+            & .tabs-bg {
+                height: 4.8rem;
+                width: 4.8rem;
+                border: 0.1rem solid #ececec;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            &:hover {
+                & .tabs-bg {
+                    border: 0.1rem solid #39bf3e;
+                    color: #39bf3e;
+                }
+                & .tabs-text {
+                    color: #39bf3e;
+                }
+            }
+            & .tabs-text {
+                text-align: center;
+                margin-top: 1rem;
+                font-size: 1.2rem;
+                color: #646464;
+            }
+        }
+    }
+}
+.chart-container {
+    width: 25rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.chart-title {
+    margin-top: 1rem;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: PingFangSC-Regular;
+    font-size: 1.6rem;
+    color: #444;
+    letter-spacing: 0;
 }
 </style>
