@@ -6,8 +6,8 @@ const routes = [
     },
     {
         path: "/seller",
-        component: () => import("./views/SellerHome.vue")
-    }
+        component: () => import("./views/SellerHome.vue"),
+    },
 ]
 export default createRouter({
     history: createWebHistory(),

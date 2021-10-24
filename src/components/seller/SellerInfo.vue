@@ -29,7 +29,11 @@ const sellerBasicInfo = reactive({
                 <label class="uploader" for="seller-profile-pic-upload"
                     >点击选择一张1:1的图片上传</label
                 >
-                <input id="seller-profile-pic-upload" type="file" accept="image/*" />
+                <input
+                    id="seller-profile-pic-upload"
+                    type="file"
+                    accept="image/*"
+                />
             </div>
             <div class="text-container">
                 <div class="info-item">
@@ -105,7 +109,7 @@ const sellerBasicInfo = reactive({
                 left: 0;
                 right: 0;
                 bottom: 0;
-                
+
                 font-size: 1.4rem;
                 justify-content: center;
                 align-items: center;
@@ -118,7 +122,6 @@ const sellerBasicInfo = reactive({
                     opacity: 1;
                 }
             }
-            
         }
 
         .text-container {
@@ -144,4 +147,3 @@ const sellerBasicInfo = reactive({
     }
 }
 </style>
-

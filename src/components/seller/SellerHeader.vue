@@ -2,10 +2,10 @@
 import { ref } from "@vue/reactivity"
 import logo from "../../assets/logo.png"
 
-const activeIndex = ref("seller-home");
+const activeIndex = ref("seller-home")
 const handleSelect = (key, keyPath) => {
     // Todo
-};
+}
 </script>
 
 <template>
@@ -63,4 +63,3 @@ const handleSelect = (key, keyPath) => {
     }
 }
 </style>
-

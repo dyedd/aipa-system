@@ -26,7 +26,9 @@
     -moz-osx-font-smoothing: grayscale;
     background: #f5f5f5;
 }
-html, body, #app {
+html,
+body,
+#app {
     height: 100%;
 }
 .el-header {

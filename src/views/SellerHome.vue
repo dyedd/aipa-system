@@ -1,13 +1,11 @@
 <script setup>
 import SellerHeader from "../components/seller/SellerHeader.vue"
 import SellerInfo from "../components/seller/SellerInfo.vue"
-
 </script>
 
 <template>
     <SellerHeader />
-    <SellerInfo class="seller-info"/>
-    
+    <SellerInfo class="seller-info" />
 </template>
 
 <style lang="scss" scoped>
