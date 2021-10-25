@@ -1,7 +1,7 @@
 @import "../../../assets/styles/constants";
 @mixin card {
     padding: 2rem;
-    box-sizing: border-box;
+    background-color: $fg-color;
 }
 
 @mixin space-between {
@@ -29,4 +29,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+@mixin main-panel {
+    width: $header-width;
+    margin: 0 auto;
+    margin-top: 2rem;
 }

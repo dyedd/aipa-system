@@ -42,9 +42,7 @@ const input = ref("")
     </el-row>
 </template>
 <style lang="scss" scoped>
-@import "../assets/styles/constants.scss";
 .wrapper {
-    height: 6rem;
     height: $header-height;
     background-color: #fff;
     box-shadow: $header-boxshadow;

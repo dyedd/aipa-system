@@ -47,7 +47,7 @@ function pushHandler() {
         </el-dialog>
 
         <div class="top-container">
-            <h1 class="title">商户信息/管理</h1>
+            <h1 class="title">商户信息管理</h1>
             <el-button type="success" @click="editorVisible = true"
                 >编辑信息</el-button
             >

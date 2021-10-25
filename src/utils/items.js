@@ -8,31 +8,56 @@ const exampleBasicItemInfo = {
     reviewCounts: 1, //type: number
     // 销售数量，单位：个
     salesVolume: 1, //type: number
-    picture: "/example/shop-profile-pic.jpg",
+    picture: "/example/shop-profile-pic.jpg", //type: str
 }
 
-const pageOfArrayOfBasicItemInfo = {
+const examplePageOfArrayOfBasicItemInfo = {
     // ...
     page: 0, //type: number
+    // aka. value.length
     counts: 0, //type: number
+    // 总页数
+    pageCounts: 10, //type:number
     value: [exampleBasicItemInfo], //type: basicItemInfo
 }
 /**
  * fetch items from server by sellerId
  * @param page type: number
  * @param counts type: number
- * @return items type: pageOfArrayOfBasicItemInfo
+ * @return items type: Promise<PageOfArrayOfBasicItemInfo>
  */
 export function fetchItemsBySellerId(sellerId, page, counts) {
     const result = []
     exampleBasicItemInfo.sellerId = sellerId
     for (let i = 0; i < counts; i++) {
-        result.push({ ...exampleBasicItemInfo })
+        result.push({
+            ...exampleBasicItemInfo,
+            ...{
+                id: page * counts + i,
+                price: Math.round(Math.random() * 10000),
+                reviewCounts: Math.round(Math.random() * 3000),
+                salesVolume: Math.round(Math.random() * 3000),
+            },
+        })
     }
-    return { page: page, counts: counts, value: result }
+    return Promise.resolve({
+        page: page,
+        counts: counts,
+        value: result,
+        pageCounts: 10,
+    })
 }
 
-// TODO
 export function hasMoreItems(any) {
-    return true
+    if (
+        !(
+            any.page !== undefined &&
+            any.page !== null &&
+            any.pageCounts !== null &&
+            any.pageCounts !== undefined
+        )
+    ) {
+        throw new Error("this is not a page-like object")
+    }
+    return any.page < any.pageCounts - 1
 }

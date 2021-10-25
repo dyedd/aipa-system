@@ -26,7 +26,7 @@ const bills = billsInfo.value
 </template>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/constants.scss";
+//@import "../../assets/styles/constants.scss";
 @import "./style/common.scss";
 
 .bills-preview-content {
