@@ -1,8 +1,8 @@
-<script setup>
-import Heading from "./Heading.vue"
-</script>
+<script setup></script>
 <template>
-    <Heading spanText="新品" hText="上架" />
+    <div class="section-heading">
+        <span>新品上架</span>
+    </div>
     <div class="productItem">
         <div class="productDetail">
             <a href="#" target="_blank">
@@ -80,6 +80,7 @@ import Heading from "./Heading.vue"
 .productItem {
     display: flex;
     justify-content: space-between;
+    background-color: #fff;
 }
 .productDetail {
     width: 23.4rem;
@@ -125,6 +126,19 @@ import Heading from "./Heading.vue"
         & .price {
             color: #1baeae;
         }
+    }
+}
+.section-heading {
+    width: 100%;
+    margin: 2rem 0 0rem;
+    overflow: hidden;
+    background-color: #fff;
+    span {
+        font-size: 2rem;
+        line-height: 5rem;
+        color: #000;
+        margin-left: 1.5rem;
+        font-weight: 600;
     }
 }
 </style>
