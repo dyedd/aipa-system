@@ -18,7 +18,7 @@ function pushInfo() {
 
 function pushHandler() {
     pushInfo()
-    editorVisible = false
+    editorVisible.value = false
 }
 </script>
 

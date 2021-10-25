@@ -13,7 +13,7 @@ import { SELLER_PATH_PREFIX } from "../../views/seller/seller-router"
 const router = useRouter()
 const activeIndex = ref("SellerHome")
 const handleSelect = key => {
-    router.push(key)
+    router.push(SELLER_PATH_PREFIX + "/" + key)
 }
 function updateActiveIndex(path) {
     const pathArray = path.split("/")
