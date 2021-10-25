@@ -1,9 +1,14 @@
 <script setup>
+import { ref } from "@vue/reactivity"
 import { fetchItemsBySellerId, hasMoreItems } from "../../utils/items.js"
 import { getUserId } from "../../utils/userInfo.js"
 
-const itemInfo = fetchItemsBySellerId(getUserId(), 0, 8)
-const items = itemInfo.value
+const itemInfo = ref({})
+const items = ref([])
+fetchItemsBySellerId(getUserId(), 0, 8).then(res => {
+    itemInfo.value = res
+    items.value = res.value
+})
 </script>
 
 <template>
