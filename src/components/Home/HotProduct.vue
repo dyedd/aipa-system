@@ -1,6 +1,7 @@
 <template>
     <div class="item-class">
-        <div class="item-class-head item-class-eat-head">
+        <div class="item-class-head">
+            <Icon name="remen" size="3rem" />
             <span class="item-class-title">热门商品</span>
             <ul>
                 <li v-for="(item, index) in 6" :key="index">
@@ -58,12 +59,16 @@
     width: 100%;
     height: 47rem;
     margin-top: 3.5rem;
-    background-color: #fff;
+    background-color: $fg-color;
+    padding-bottom: 50rem;
 }
 .item-class-head {
     width: 100%;
     height: 5rem;
-    background-color: #fff;
+    background-color: $fg-color;
+    svg {
+        @include icon-pos;
+    }
     ul {
         list-style: none;
         float: right;
@@ -74,12 +79,13 @@
         padding: 0.6rem;
         margin-left: 1.5rem;
         font-size: 1.2rem;
-        background-color: #39bf3e;
-        border: 0.1rem solid #39bf3e;
+        background-color: $green-text-color;
+        border: 0.1rem solid $green-text-color;
         text-decoration: none;
-        color: #fff;
+        color: $fg-color;
+        border-radius: 10rem;
         &:hover {
-            border: 0.1rem solid #fff;
+            border: 0.1rem solid $fg-color;
         }
     }
     li {
@@ -90,14 +96,14 @@
     font-weight: 600;
     font-size: 2rem;
     line-height: 5rem;
-    color: #000;
-    margin-left: 1.5rem;
+    color: $normal-text-color;
+    margin-left: 0.5rem;
 }
 .item-class-content {
-    width: 50%;
     cursor: pointer;
     border-right: 0.1rem solid #ccc;
     float: left;
+    margin-left: 0.5rem;
     &:nth-child(odd) {
         border: none;
     }
@@ -107,11 +113,12 @@
     height: 26rem;
 }
 .item-big-img {
-    width: 16.6rem;
-    height: 26rem;
+    width: 17rem;
     overflow: hidden;
     float: left;
     img {
+        width: 16.6rem;
+        height: 26rem;
         margin-left: 0rem;
         transition: margin-left 0.3s;
     }
@@ -123,8 +130,7 @@
     }
 }
 .item-four-img {
-    width: 42.3rem;
-    margin-left: 0.9rem;
+    width: 42rem;
     float: left;
 }
 .item-four-detail {
@@ -170,17 +176,14 @@
 .pt_bi_tit {
     font-weight: bold;
     font-size: 1.2rem;
-    color: #4488a7;
-}
-.pt_bi_tit-eat {
-    color: #009688;
+    color: #006633;
 }
 .pt_bi_promo {
-    color: #00695c;
+    color: $secondary-text-color;
 }
 .item-content-bottom {
     width: 100%;
-    margin-top: 0.8rem;
+    margin-top: 5rem;
 }
 .item-content-bottom-img {
     width: 18.6rem;
