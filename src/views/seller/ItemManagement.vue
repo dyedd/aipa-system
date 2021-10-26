@@ -3,14 +3,17 @@ import PagedNavigator from "../../components/seller/widgets/PagedNavigator.vue"
 import Pager from "../../components/seller/widgets/Pager.vue"
 import { ref } from "@vue/reactivity"
 import Item from "../../components/seller/Item.vue"
-import { fetchItemsBySellerId } from "../../utils/items"
+import { fetchItemsBySellerId, createItem } from "../../utils/items"
 import { getUserId } from "../../utils/userInfo"
 import { hasMoreItems } from "../../utils/items.js"
 import { commonNavigator } from "../../utils/utils.js"
+import ItemEditor from "../../components/seller/ItemEditor.vue"
+import { ElMessage } from "element-plus"
 
 const ITEMS_PER_PAGE = 20
-let itemInfo = ref({}) // PageOfArrayOfBasicItemInfo
-let items = ref([]) // ArrayOfBasicItemInfo
+const itemInfo = ref({}) // PageOfArrayOfBasicItemInfo
+const items = ref([]) // ArrayOfBasicItemInfo
+const newItemDialogVisible = ref(false)
 
 const navigate = commonNavigator(
     page => {
@@ -24,16 +27,50 @@ const navigate = commonNavigator(
     },
     { init: true },
 )
+function newItemConfirm(modifiableItem) {
+    createItem(modifiableItem)
+        .then(res => {
+            items.value.unshift(res)
+            ElMessage({
+                type: "success",
+                message: "添加成功",
+            })
+        })
+        .catch(error => {
+            ElMessage({
+                type: "fail",
+                message: "添加失败${error}",
+            })
+        })
+        .finally(() => {
+            newItemDialogVisible.value = false
+        })
+}
+
+function newItemCancel(modifiableItem) {
+    newItemDialogVisible.value = false
+}
 </script>
 
 <template>
+    <el-dialog v-model="newItemDialogVisible" title="发布新商品">
+        <div class="new-item-dialog">
+            <ItemEditor
+                :item="{}"
+                @cancel="newItemCancel($event)"
+                @confirm="newItemConfirm($event)"
+            />
+        </div>
+    </el-dialog>
     <div class="item-management-container">
         <div class="top">
             <div class="info">
                 <h1 class="title">商品管理</h1>
                 <Pager font-size="1.5rem" :page-like="itemInfo" />
                 <div class="operations">
-                    <el-button size="small">发布新商品</el-button>
+                    <el-button size="small" @click="newItemDialogVisible = true"
+                        >发布新商品</el-button
+                    >
                 </div>
             </div>
             <div class="search-box">
@@ -64,6 +101,10 @@ const navigate = commonNavigator(
 
 <style lang="scss" scoped>
 @import "../../components/seller/style/common.scss";
+
+.new-item-dialog {
+    padding: 0 3rem;
+}
 
 .item-management-container {
     @include main-panel;

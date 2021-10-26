@@ -30,3 +30,12 @@ export function commonNavigator(
             })
     }
 }
+
+/**
+ * generate random integral number
+ * start: 0(inclusive), end: a(exclusive)
+ * @param a type: number, as end
+ */
+export function randomInt(a) {
+    return Math.floor(Math.random() * a)
+}

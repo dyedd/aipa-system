@@ -1,3 +1,5 @@
+import { randomInt } from "./utils"
+
 const exampleBasicItemInfo = {
     id: 1, //type: number
     name: "AMD Ryzen 5950X", //type: str
@@ -56,8 +58,27 @@ export function fetchItemsBySellerId(sellerId, page, counts) {
     })
 }
 
+/**
+ * @param newItem type: modifiableDetailItemInfo without id
+ */
+export function createItem(newItem) {
+    return Promise.resolve({
+        ...exampleDetailItemInfo,
+        ...newItem,
+        id: randomInt(1000) + 1000,
+    })
+}
+
 /*
- * @param id: type: number id of the item to be fetched
+ * @param id
+ * @return Promise<any>
+ */
+export function removeItemById(id) {
+    return Promise.resolve(true)
+}
+
+/*
+ * @param id type: number id of the item to be fetched
  * @return item: type: Promise<DetailItemInfo>
  */
 export function fetchItemById(id) {
@@ -70,16 +91,39 @@ export function fetchItemById(id) {
     })
 }
 
-export function hasMoreItems(any) {
+/*
+ * @param id type: number id of the item to be modified
+ * @param modifiableDetailItemInfo type: ModifiableDetailItemInfo
+ * @return result type: Promise<DetailItemInfo>
+ */
+export async function updateItemById(id, modifiableDetailItemInfo) {
+    const value = await fetchItemById(id)
+    return {
+        ...value,
+        ...modifiableDetailItemInfo,
+    }
+}
+
+export function hasMoreItems(pageLike) {
     if (
         !(
-            any.page !== undefined &&
-            any.page !== null &&
-            any.pageCounts !== null &&
-            any.pageCounts !== undefined
+            pageLike.page !== undefined &&
+            pageLike.page !== null &&
+            pageLike.pageCounts !== null &&
+            pageLike.pageCounts !== undefined
         )
     ) {
         throw new Error("this is not a page-like object")
     }
-    return any.page < any.pageCounts - 1
+    return pageLike.page < pageLike.pageCounts - 1
+}
+
+/**
+ * generate modifiableDetailItemInfo, for  modifying existing item
+ * @param item: type: DetailItemInfo, defined above
+ * @return result: type: ModifiableDetailItemInfo
+ */
+export function generateModifiableDetailItemInfo(item) {
+    const { id, name, price, detailedDescription, picture } = item
+    return { id, name, price, detailedDescription, picture }
 }

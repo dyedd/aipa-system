@@ -1,15 +1,25 @@
 <script setup>
 import { ref } from "@vue/reactivity"
 import { useRoute, useRouter } from "vue-router"
-import { fetchItemById } from "../../utils/items"
+import {
+    fetchItemById,
+    removeItemById,
+    updateItemById,
+    generateModifiableDetailItemInfo,
+} from "../../utils/items"
 import ItemInfo from "../../components/seller/ItemInfo.vue"
 import Review from "../../components/seller/Review.vue"
 import { fetchReviewsByItemId } from "../../utils/reviews"
 import Pager from "../../components/seller/widgets/Pager.vue"
 import PagedNavigator from "../../components/seller/widgets/PagedNavigator.vue"
 import { commonNavigator } from "../../utils/utils"
+import { ElMessageBox, ElMessage } from "element-plus"
+import "element-plus/es/components/message/style/css"
+import "element-plus/es/components/message-box/style/css"
+
 const REVIEWS_PER_PAGE = 15
 
+const router = useRouter()
 const route = useRoute()
 const itemId = route.params.id
 const item = ref({}) // type: DetailItemInfo, defined in items.js
@@ -36,9 +46,54 @@ async function init() {
     )
 }
 init().then(() => {})
+
+function removeItem() {
+    ElMessageBox.confirm("确定要删除商品?", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+    })
+        .then(async () => {
+            await removeItemById(item.value.id)
+            ElMessage({
+                type: "success",
+                message: "删除成功",
+            })
+            router.back()
+        })
+        .catch(() => {})
+}
+
+const modifiableDetailItemInfo = ref()
+const editItemDialogVisible = ref(false)
+function editItem() {
+    modifiableDetailItemInfo.value = generateModifiableDetailItemInfo(
+        item.value,
+    )
+    editItemDialogVisible.value = true
+}
+function editItemConfirm(modifiableItem) {
+    updateItemById(modifiableItem.id, modifiableItem).then(value => {
+        item.value = value
+    })
+
+    editItemDialogVisible.value = false
+}
+function editItemCancel(modifiableItem) {
+    editItemDialogVisible.value = false
+}
 </script>
 
 <template>
+    <el-dialog v-model="editItemDialogVisible" title="编辑商品">
+        <div class="new-item-dialog">
+            <ItemEditor
+                :item="modifiableDetailItemInfo"
+                @cancel="editItemCancel($event)"
+                @confirm="editItemConfirm($event)"
+            />
+        </div>
+    </el-dialog>
     <div class="item-detail" v-if="item !== undefined && item !== null">
         <div class="header">
             <h1 class="title">商品: {{ item.name }}</h1>
@@ -70,7 +125,12 @@ init().then(() => {})
             <div class="top">
                 <h1 class="title">商品信息</h1>
                 <div class="operations">
-                    <el-button type="success">编辑信息</el-button>
+                    <el-button type="danger" @click="removeItem()"
+                        >删除商品</el-button
+                    >
+                    <el-button type="success" @click="editItem()"
+                        >编辑信息</el-button
+                    >
                 </div>
             </div>
             <ItemInfo :item="item" class="item-info" />

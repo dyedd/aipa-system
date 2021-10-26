@@ -39,3 +39,16 @@
     margin: 0 auto;
     margin-top: 2rem;
 }
+
+// is there a better name?
+@mixin common-coverer {
+    @include fullsize;
+    opacity: 0;
+
+    &:hover {
+        @include center;
+        opacity: 1;
+        color: #fff;
+        background-color: rgba($color: #000000, $alpha: 0.7);
+    }
+}

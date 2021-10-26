@@ -5,17 +5,13 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="item-info">
+    <div class="item-info" v-if="item">
         <div class="picture-container">
             <el-image :src="item.picture" />
-            <label class="uploader" for="seller-profile-pic-upload"
+            <label class="uploader" for="iteminfo-pic-upload"
                 >点击选择一张1:1的图片上传</label
             >
-            <input
-                id="seller-profile-pic-upload"
-                type="file"
-                accept="image/*"
-            />
+            <input id="iteminfo-pic-upload" type="file" accept="image/*" />
         </div>
         <div class="text-info">
             <div class="item">
@@ -36,6 +32,9 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 @import "./style/common.scss";
+#iteminfo-pic-upload {
+    display: none;
+}
 .item-info {
     @include card;
     display: flex;
@@ -51,16 +50,8 @@ const props = defineProps({
         position: relative;
 
         .uploader {
-            @include fullsize;
-            opacity: 0;
-
-            &:hover {
-                @include center;
-                opacity: 1;
-                font-size: 1.6rem;
-                color: #fff;
-                background-color: rgba($color: #000000, $alpha: 0.7);
-            }
+            @include common-coverer;
+            font-size: 1.6rem;
         }
         #seller-profile-pic-upload {
             display: none;
