@@ -2,7 +2,6 @@
 const props = defineProps({
     item: Object, // type: BasicItemInfo, defined in items.js
 })
-const item = props.item
 </script>
 
 <template>
