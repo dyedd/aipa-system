@@ -6,6 +6,11 @@ const routes = [
         component: () => import("./views/Home.vue"),
         name: "Root",
     },
+    {
+        path: "/login",
+        component: () => import("./views/Login.vue"),
+        name: "Login",
+    },
     ...sellerRouter,
 ]
 export default createRouter({

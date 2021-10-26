@@ -3,7 +3,8 @@
         "active-color": #39bf3e,
     ),
     $input:("focus-border":#39bf3e),
-    $backtop:('font-color':#39bf3e)
+    $backtop:('font-color':#39bf3e),
+    $colors:('primary':('base':#39bf3e)),
 );
 
 @import "../constants.scss";
