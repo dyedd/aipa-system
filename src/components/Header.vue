@@ -44,7 +44,7 @@ const input = ref("")
 <style lang="scss" scoped>
 .wrapper {
     height: $header-height;
-    background-color: #fff;
+    background-color: $fg-color;
     box-shadow: $header-boxshadow;
     width: 100%;
     .header {
@@ -53,11 +53,11 @@ const input = ref("")
         margin: 0 auto;
     }
     .search {
-        line-height: 6rem;
+        line-height: $header-height;
     }
 }
 .header-logo {
-    line-height: 6rem;
+    line-height: $header-height;
 }
 .el-menu--horizontal {
     border-bottom: none;

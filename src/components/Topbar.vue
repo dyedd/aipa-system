@@ -34,7 +34,7 @@
 <style lang="scss" scoped>
 .el-container {
     width: 100%;
-    background-color: #000;
+    background-color: $normal-text-color;
 }
 .el-header {
     height: 3.6rem;
@@ -45,15 +45,15 @@
 }
 .welcome-mes {
     font-size: 1.2rem;
-    color: #fff;
+    color: $fg-color;
 }
 .right-info {
     line-height: 3.6rem;
     height: 3.6rem;
 }
 .right-info-item {
-    color: #fff;
-    border-right: 0.1rem solid #fff;
+    color: $fg-color;
+    border-right: 0.1rem solid $fg-color;
     padding: 0 1rem;
 }
 .right-info > button:last-child {

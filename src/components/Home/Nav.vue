@@ -306,7 +306,7 @@ onMounted(() => {
             font-weight: 600;
             text-decoration: none;
             &:hover {
-                color: $text-hover !important;
+                color: $primary-color !important;
             }
         }
     }
@@ -324,7 +324,7 @@ onMounted(() => {
             color: #646464;
             letter-spacing: 0;
             &:hover {
-                color: $text-hover !important;
+                color: $primary-color !important;
             }
         }
     }
@@ -406,7 +406,7 @@ onMounted(() => {
             border-bottom: 0.2rem solid #fff;
         }
         & .bar-item.bar-active {
-            border-bottom: 0.2rem solid #39bf3e !important;
+            border-bottom: 0.2rem solid $primary-color !important;
         }
     }
     & .tabs-content {

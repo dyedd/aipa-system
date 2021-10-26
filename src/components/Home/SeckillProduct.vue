@@ -1,6 +1,5 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity"
-import clock from "../../assets/clock.png"
 let seckillsHours = ref(1)
 let seckillsMinutes = ref(38)
 let seckillsSeconds = ref(36)
@@ -41,7 +40,7 @@ let interval = setInterval(() => {
     <div class="seckill">
         <div class="seckill-head">
             <div class="seckill-icon">
-                <img :src="clock" />
+                <Icon name="shijian" size="3rem"></Icon>
             </div>
             <div class="seckill-text">
                 <span class="seckill-title">
@@ -96,17 +95,12 @@ let interval = setInterval(() => {
 .seckill-head {
     width: 100%;
     height: 5rem;
-    background-color: #fff;
+    background-color: $fg-color;
 }
 .seckill-icon {
-    width: 6.8rem;
-    height: 100%;
-    float: left;
-    img {
-        width: 3.5rem;
-        height: 3.5rem;
-        margin-top: 0.6rem;
-        margin-left: 1.5rem;
+    @include icon-pos;
+    margin-right: 0.5rem;
+    svg {
         animation-name: shake-clock;
         animation-duration: 0.3s;
         animation-iteration-count: infinite;
@@ -138,7 +132,7 @@ let interval = setInterval(() => {
     .seckill-remarks {
         margin-left: 0.5rem;
         font-size: 1rem;
-        color: #e61111;
+        color: $red-text-color;
     }
 }
 /*倒计时*/
@@ -150,25 +144,25 @@ let interval = setInterval(() => {
 }
 .count-down-text {
     margin: 0 0.5rem;
-    color: #000;
+    color: $normal-text-color;
 }
 .count-down-num {
     padding: 0.3rem;
-    border-radius: 0.5rem;
-    background-color: #000;
+    border-radius: 50%;
+    background-color: $third-text-color;
     font-size: 2.6rem;
     font-weight: bold;
-    color: #fff;
+    color: $fg-color;
 }
 .count-down-point {
     font-size: 2.6rem;
     font-weight: bold;
-    color: #000;
+    color: $normal-text-color;
 }
 .seckill-content {
     width: 100%;
     height: 28rem;
-    background: #fff;
+    background: $fg-color;
 }
 .seckill-item {
     width: 18.3rem;
@@ -204,7 +198,7 @@ let interval = setInterval(() => {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     font-size: 1.2rem;
-    color: #009688;
+    color: $secondary-text-color;
     i {
         &:first-child {
             font-size: 1.4rem;
@@ -215,5 +209,8 @@ let interval = setInterval(() => {
     margin-right: 0.5rem;
     font-size: 2.5rem;
     font-weight: bold;
+}
+.text-danger {
+    color: $red-text-color;
 }
 </style>
