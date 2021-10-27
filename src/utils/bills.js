@@ -40,7 +40,7 @@ const exampleBasicBill = {
     itemName: "农家土鸡蛋", //type: str
     price: 1234, //type: number
     buyerId: 1, //type: number
-    buyerName: "永恒之星", //type: str
+    buyerName: "张三", //type: str
     date: "2021-01-01 12:13", //type: str
     state: BILL_STATES.CONFIRMED.code,
 }
@@ -75,7 +75,7 @@ export function fetchBillsBySellerId(sellerId, page, counts) {
 const exampleDetailBill = {
     ...exampleBasicBill,
     phone: "1234312", //type: str
-    destination: "海加尔山 诸神之黄昏", //type: str
+    destination: "中国", //type: str
     // 运费
     shipFee: 6, //type: number
     shipInfo: "厂商配送",

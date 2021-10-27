@@ -12,10 +12,10 @@ import { getSellerId } from "./userInfo"
 
 const exampleBasicItemInfo = {
     id: 1, //type: number
-    name: "AMD Ryzen 5950X", //type: str
+    name: "农家土鸡蛋", //type: str
     price: 1234, //type: number
     sellerId: 1, //type: number
-    sellerName: "江南皮革厂", //type: number
+    sellerName: "江西特产", //type: number
     // 评论数量
     reviewCounts: 1, //type: number
     // 销售数量，单位：个
@@ -36,7 +36,7 @@ const examplePageOfArrayOfBasicItemInfo = {
 const exampleDetailItemInfo = {
     ...exampleBasicItemInfo,
     detailedDescription:
-        "商品的详细说明\nAMD will host its Accelerated Data Center Premiere on November 8, 2021 at 11 a.m. ET, showcasing the company's upcoming innovations with AMD EPYC processors and AMD Instinct accelerators. The virtual event is slated to feature presentations from AMD President and CEO Dr. Lisa Su, Senior Vice President and General Manager, Data Center and Embedded Solutions Business Group Forrest Norrod, and Senior Vice President and General Manager, Server Business Unit Dan McNamara. The event will be accessible to the public at this page starting at 11 a.m. ET. A replay will be available and can be accessed after the conclusion of the livestream event.", //type: str
+        "上鲜 这个牌子的产品很好，上鲜食品的鸡米花很好吃，之前都是在超市购买，发现网上更实惠！感觉这个牌子的鸡块跟外面买的一样，非常的好吃，煎几分钟就好了。色泽金黄，外酥里嫩，肉质细腻，鸡肉多，只裹了一层薄薄面粉，咸度合适，吃起来肉香味十足，蘸着番茄酱很好吃。拿回来自己炸，挺好吃的，还吃得放心。味道很好，鸡肉软嫩可口，非常美味，有点好吃到停不下来。第一次在京东买生鲜，上鲜 冷冻鸡肉系列食品，品质有保证，零激素，食用放心，500g一大袋，吃过后感觉味道不错。家人一直爱吃上鲜 食品，之前是买的别的组合装，到了夏季就是鸡米花买的更多了。质量真的是很好了，里面是实实在在的鸡肉，不像有些产品。这个能吃到鸡肉，味道也很好，价格赶上搞活动就很划算。包装看着简单干净，一直买这个牌子的鸡冻品，大品牌的质量有保证。 快递也非常速度，吃完来回购了。", //type: str
     // 销售额, 单位：元
     sales: 1, //type: number
 }
