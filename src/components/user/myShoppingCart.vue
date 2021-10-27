@@ -18,7 +18,12 @@ let tableData = store.state.shoppingCart
         <el-table-column label="数量" prop="count" />
         <el-table-column label="价格" prop="price" />
     </el-table>
-    <el-button type="danger" style="float: right; margin-top: 2rem"
+    <el-button
+        type="danger"
+        style="float: right; margin-top: 2rem; margin-left: 2rem"
         >删除</el-button
+    >
+    <el-button type="primary" style="float: right; margin-top: 2rem"
+        >去结账</el-button
     >
 </template>
