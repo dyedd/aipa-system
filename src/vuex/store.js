@@ -7,6 +7,7 @@ const store = createStore({
         userInfo: {
             username: "",
             group: "",
+            id: 0,
         },
         goodsSort: [],
         goodsList: [], // 商品列表

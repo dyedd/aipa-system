@@ -21,7 +21,7 @@ const REVIEWS_PER_PAGE = 15
 
 const router = useRouter()
 const route = useRoute()
-const itemId = route.params.id
+const itemId = JSON.parse(route.params.id)
 const item = ref({}) // type: DetailItemInfo, defined in items.js
 const reviewInfo = ref({}) // type: PageOfArrayOfReview, defined in reviews.js
 const reviews = ref([])

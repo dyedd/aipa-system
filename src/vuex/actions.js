@@ -1,15 +1,13 @@
 import { panelData } from "../utils/panelData"
+import { getAllUsers } from "../utils/db/users"
 // 添加注册用户
 export const register = ({ commit }, data) => {
     return new Promise((resolve, reject) => {
-        const userArr = localStorage.getItem("users")
-        let users = []
-        if (userArr) {
-            users = JSON.parse(userArr)
-        }
+        const users = getAllUsers()
         users.push({
             ...data,
             group: 0,
+            id: users.length + 1,
         })
         localStorage.setItem("users", JSON.stringify(users))
     })
@@ -23,6 +21,7 @@ export const login = ({ commit }, data) => {
                 "loginInfo",
                 JSON.stringify({
                     ...data,
+                    id: 0,
                     group: 2,
                 }),
             )

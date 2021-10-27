@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "@vue/reactivity"
 import { onMounted, watch } from "vue-demi"
+import { uploadFile } from "../../utils/commonApi.js"
+import { PLACEHOLDER_IMAGE_PATH } from "../constants.js"
 const CONFRIM = "confirm"
 const CANCEL = "cancel"
 
@@ -9,19 +11,39 @@ const props = defineProps({
 })
 const emits = defineEmits(["confirm", "cancel"])
 const modifiableItem = ref({ ...props.item })
-const PLACEHOLDER_IMAGE_PATH = "/example/placeholder.png"
+const itemPicUploader = ref()
+function itemPicUpload() {
+    const files = itemPicUploader.value.files
+    if (files !== 0) {
+        uploadFile(files[0]).then(result => {
+            modifiableItem.value.picture = result
+        })
+    }
+}
 </script>
 
 <template>
     <div class="item-editor">
         <div class="picture-container">
             <el-image
-                :src="modifiableItem?.picture ?? PLACEHOLDER_IMAGE_PATH"
+                class="picture"
+                fit="cover"
+                :src="
+                    modifiableItem?.picture
+                        ? modifiableItem?.picture
+                        : PLACEHOLDER_IMAGE_PATH
+                "
             />
             <label class="uploader" for="item-pic-upload"
                 >点击选择一张1:1的图片上传</label
             >
-            <input id="item-pic-upload" type="file" accept="image/*" />
+            <input
+                @change="itemPicUpload"
+                ref="itemPicUploader"
+                id="item-pic-upload"
+                type="file"
+                accept="image/*"
+            />
         </div>
         <div class="text-container">
             <el-form :model="modifiableItem" label-width="12rem">
@@ -64,6 +86,10 @@ const PLACEHOLDER_IMAGE_PATH = "/example/placeholder.png"
         position: relative;
         flex: 0 0 200px;
         height: 200px;
+        .picture {
+            width: 200px;
+            height: 200px;
+        }
         .uploader {
             font-size: 1.6rem;
             @include common-coverer;

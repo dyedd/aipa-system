@@ -10,7 +10,7 @@ import { commonNavigator } from "../../utils/utils.js"
 import ItemEditor from "../../components/seller/ItemEditor.vue"
 import { ElMessage } from "element-plus"
 
-const ITEMS_PER_PAGE = 20
+const ITEMS_PER_PAGE = 2
 const itemInfo = ref({}) // PageOfArrayOfBasicItemInfo
 const items = ref([]) // ArrayOfBasicItemInfo
 const newItemDialogVisible = ref(false)
@@ -30,16 +30,16 @@ const navigate = commonNavigator(
 function newItemConfirm(modifiableItem) {
     createItem(modifiableItem)
         .then(res => {
-            items.value.unshift(res)
             ElMessage({
                 type: "success",
                 message: "添加成功",
             })
+            navigate(0, { absolute: true })
         })
         .catch(error => {
             ElMessage({
-                type: "fail",
-                message: "添加失败${error}",
+                type: "error",
+                message: `添加失败${error}`,
             })
         })
         .finally(() => {

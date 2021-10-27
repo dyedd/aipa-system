@@ -1,4 +1,5 @@
 <script setup>
+import { PLACEHOLDER_IMAGE_PATH } from "../constants.js"
 const props = defineProps({
     item: Object, // type: BasicItemInfo, defined in items.js
 })
@@ -7,7 +8,11 @@ const props = defineProps({
 <template>
     <div class="item" v-if="item !== null && item !== undefined">
         <router-link :to="{ name: 'ItemDetail', params: { id: item.id } }">
-            <el-image :src="item.picture" class="preview-picture"></el-image>
+            <el-image
+                fit="cover"
+                :src="item.picture ? item.picture : PLACEHOLDER_IMAGE_PATH"
+                class="preview-picture"
+            ></el-image>
         </router-link>
         <div class="description-container">
             <div class="price">¥{{ item.price }}</div>
@@ -37,6 +42,10 @@ const props = defineProps({
 .item {
     display: flex;
     flex-direction: column;
+    .preview-picture {
+        height: 200px;
+        width: 200px;
+    }
 
     .description-container {
         padding: 0.5rem 1rem;

@@ -2,7 +2,7 @@
 import { ref } from "@vue/reactivity"
 import { fetchItemsBySellerId, hasMoreItems } from "../../utils/items.js"
 import { getUserId } from "../../utils/userInfo.js"
-
+import { PLACEHOLDER_IMAGE_PATH } from "../constants.js"
 const itemInfo = ref({})
 const items = ref([])
 fetchItemsBySellerId(getUserId(), 0, 8).then(res => {
@@ -19,7 +19,10 @@ fetchItemsBySellerId(getUserId(), 0, 8).then(res => {
         </div>
         <div class="item-container">
             <div v-for="(item, index) in items" :key="item.id" class="item">
-                <el-image :src="item.picture" fit="cover" />
+                <el-image
+                    :src="item.picture ? item.picture : PLACEHOLDER_IMAGE_PATH"
+                    fit="cover"
+                />
                 <div
                     v-if="hasMoreItems(itemInfo) && index == items.length - 1"
                     class="show-more"

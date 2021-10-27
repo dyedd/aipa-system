@@ -15,8 +15,11 @@ export function commonNavigator(
     if (init) {
         fetchFunc(initPage).then(res => callback(res))
     }
-    return offset => {
-        const to = initPage + offset
+    return (offset, { absolute = false } = {}) => {
+        let to = initPage + offset
+        if (absolute) {
+            to = offset
+        }
         fetchFunc(to)
             .then(res => {
                 return callback(res)

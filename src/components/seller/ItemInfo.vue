@@ -1,4 +1,5 @@
 <script setup>
+import { PLACEHOLDER_IMAGE_PATH } from "../constants.js"
 const props = defineProps({
     item: Object, // type: DetailItemInfo defined in items.js
 })
@@ -7,11 +8,11 @@ const props = defineProps({
 <template>
     <div class="item-info" v-if="item">
         <div class="picture-container">
-            <el-image :src="item.picture" />
-            <label class="uploader" for="iteminfo-pic-upload"
-                >点击选择一张1:1的图片上传</label
-            >
-            <input id="iteminfo-pic-upload" type="file" accept="image/*" />
+            <el-image
+                class="picture"
+                fit="cover"
+                :src="item.picture ? item.picture : PLACEHOLDER_IMAGE_PATH"
+            />
         </div>
         <div class="text-info">
             <div class="item">
@@ -49,12 +50,9 @@ const props = defineProps({
         flex: 0 0 200px;
         position: relative;
 
-        .uploader {
-            @include common-coverer;
-            font-size: 1.6rem;
-        }
-        #seller-profile-pic-upload {
-            display: none;
+        .picture {
+            height: 200px;
+            width: 200px;
         }
     }
 

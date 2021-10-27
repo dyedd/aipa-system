@@ -1,6 +1,8 @@
+import store from "../vuex/store"
+
 /**
  * @return userId type: number
  */
 export function getUserId() {
-    return 1
+    return store.state.userInfo.id
 }

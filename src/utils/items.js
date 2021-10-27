@@ -1,4 +1,12 @@
 import { randomInt } from "./utils"
+import {
+    getItemsBySellerIdPaginated,
+    newItem,
+    deleteItem,
+    readItem,
+    updateItem,
+} from "./db/item-repository"
+import { getUserId } from "./userInfo"
 
 const exampleBasicItemInfo = {
     id: 1, //type: number
@@ -37,36 +45,40 @@ const exampleDetailItemInfo = {
  * @return items type: Promise<PageOfArrayOfBasicItemInfo>
  */
 export function fetchItemsBySellerId(sellerId, page, counts) {
-    const result = []
-    exampleBasicItemInfo.sellerId = sellerId
-    for (let i = 0; i < counts; i++) {
-        result.push({
-            ...exampleBasicItemInfo,
-            ...{
-                id: page * counts + i,
-                price: Math.round(Math.random() * 10000),
-                reviewCounts: Math.round(Math.random() * 3000),
-                salesVolume: Math.round(Math.random() * 3000),
-            },
-        })
-    }
-    return Promise.resolve({
-        page: page,
-        counts: counts,
-        value: result,
-        pageCounts: 10,
+    //    const result = []
+    //    exampleBasicItemInfo.sellerId = sellerId
+    //    for (let i = 0; i < counts; i++) {
+    //        result.push({
+    //            ...exampleBasicItemInfo,
+    //            ...{
+    //                id: page * counts + i,
+    //                price: Math.round(Math.random() * 10000),
+    //                reviewCounts: Math.round(Math.random() * 3000),
+    //                salesVolume: Math.round(Math.random() * 3000),
+    //            },
+    //        })
+    //    }
+    //    return Promise.resolve({
+    //        page: page,
+    //        counts: counts,
+    //        value: result,
+    //        pageCounts: 10,
+    //    })
+    return new Promise((resolve, reject) => {
+        resolve(getItemsBySellerIdPaginated(sellerId, page, counts))
     })
 }
 
 /**
- * @param newItem type: modifiableDetailItemInfo without id
+ * @param item type: modifiableDetailItemInfo without id
  */
-export function createItem(newItem) {
-    return Promise.resolve({
-        ...exampleDetailItemInfo,
-        ...newItem,
-        id: randomInt(1000) + 1000,
-    })
+export function createItem(item) {
+    //    return Promise.resolve({
+    //        ...exampleDetailItemInfo,
+    //        ...newItem,
+    //        id: randomInt(1000) + 1000,
+    //    })
+    return Promise.resolve(newItem(item, getUserId()))
 }
 
 /*
@@ -74,7 +86,14 @@ export function createItem(newItem) {
  * @return Promise<any>
  */
 export function removeItemById(id) {
-    return Promise.resolve(true)
+    return new Promise((resolve, reject) => {
+        const result = deleteItem(id)
+        if (result) {
+            resolve(true)
+        } else {
+            reject(new Error("NOT FOUND"))
+        }
+    })
 }
 
 /*
@@ -82,12 +101,20 @@ export function removeItemById(id) {
  * @return item: type: Promise<DetailItemInfo>
  */
 export function fetchItemById(id) {
-    return Promise.resolve({
-        ...exampleDetailItemInfo,
-        id: id,
-        sales: Math.round(Math.random() * 10000),
-        salesVolume: Math.round(Math.random() * 1000),
-        reviewCounts: Math.round(Math.random() * 5000),
+    //    return Promise.resolve({
+    //        ...exampleDetailItemInfo,
+    //        id: id,
+    //        sales: Math.round(Math.random() * 10000),
+    //        salesVolume: Math.round(Math.random() * 1000),
+    //        reviewCounts: Math.round(Math.random() * 5000),
+    //    })
+    return new Promise((resolve, reject) => {
+        const result = readItem(id)
+        if (result) {
+            resolve(result)
+        } else {
+            reject(new Error("NOT FOUND"))
+        }
     })
 }
 
@@ -97,11 +124,19 @@ export function fetchItemById(id) {
  * @return result type: Promise<DetailItemInfo>
  */
 export async function updateItemById(id, modifiableDetailItemInfo) {
-    const value = await fetchItemById(id)
-    return {
-        ...value,
-        ...modifiableDetailItemInfo,
-    }
+    //    const value = await fetchItemById(id)
+    //    return {
+    //        ...value,
+    //        ...modifiableDetailItemInfo,
+    //    }
+    return new Promise((resolve, reject) => {
+        const result = updateItem(id, modifiableDetailItemInfo)
+        if (result) {
+            resolve(result)
+        } else {
+            reject(new Error("NOT FOUND"))
+        }
+    })
 }
 
 export function hasMoreItems(pageLike) {
