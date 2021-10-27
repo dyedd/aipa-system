@@ -1,25 +1,24 @@
-<script setup></script>
+<script setup>
+import { useStore } from "vuex"
+const store = useStore()
+store.dispatch("loadNewGoods")
+const goods = store.state.newGoodsList
+</script>
 <template>
     <div class="section-heading">
         <Icon name="xinpin" size="3rem" />
         <span>新品上架</span>
     </div>
     <div class="productItem">
-        <template v-for="item in 5" :key="item">
+        <template v-for="item in goods" :key="item.price">
             <div class="productDetail">
                 <a href="#" target="_blank">
                     <p class="img-box">
-                        <img
-                            src="https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/mate40pro%2B.png"
-                            alt="HUAWEI Mate 40 Pro+ 5G 全网通"
-                        />
+                        <img :src="item.img" alt="item.name" />
                     </p>
-                    <p class="name">HUAWEI Mate 40 Pro+ 5G 全网通</p>
-                    <p class="desc">
-                        华为 HUAWEI Mate 40 Pro+ 5G 全网通华为 HUAWEI Mate 40
-                        Pro+ 5G 全网通
-                    </p>
-                    <p class="price">￥6799</p>
+                    <p class="name">{{ item.name }}</p>
+                    <p class="desc">{{ item.desc }}</p>
+                    <p class="price">￥{{ item.price }}</p>
                 </a>
             </div>
         </template>

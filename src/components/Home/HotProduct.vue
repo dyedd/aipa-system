@@ -1,39 +1,45 @@
+<script setup>
+import { useStore } from "vuex"
+const store = useStore()
+store.dispatch("loadHot")
+const hot = store.state.hotGoodsList
+</script>
 <template>
     <div class="item-class">
         <div class="item-class-head">
             <Icon name="remen" size="3rem" />
             <span class="item-class-title">热门商品</span>
             <ul>
-                <li v-for="(item, index) in 6" :key="index">
-                    <a href="#">休闲零食</a>
+                <li v-for="(item, index) in hot.link" :key="index">
+                    <a href="#">{{ item }}</a>
                 </li>
             </ul>
         </div>
-        <div class="item-class-content" v-for="(i, index) in 2" :key="index">
+        <div
+            class="item-class-content"
+            v-for="(item, index) in hot.detail"
+            :key="index"
+        >
             <div class="item-content-top">
                 <div class="item-big-img">
-                    <img
-                        src="https://powerdos.github.io/Mall-Vue/static/img/index/eat/item-eat-1-1.jpg"
-                        alt
-                    />
+                    <img :src="item.bigImg" alt />
                 </div>
                 <div class="item-four-img">
                     <div
                         class="item-four-detail"
-                        v-for="(subItem, index) in 4"
+                        v-for="(subItem, index) in item.itemFour"
                         :key="index"
                     >
                         <div class="item-four-detail-text">
-                            <p class="pt_bi_tit pt_bi_tit-eat">粮油调味</p>
-                            <p class="pt_bi_promo">买2免1</p>
+                            <p class="pt_bi_tit pt_bi_tit-eat">
+                                {{ subItem.title }}
+                            </p>
+                            <p class="pt_bi_promo">{{ subItem.intro }}</p>
                         </div>
                         <div class="item-four-detail-img">
-                            <a>
-                                <img
-                                    src="https://powerdos.github.io/Mall-Vue/static/img/index/eat/item-eat-1-2.jpg"
-                                    alt
-                                />
-                            </a>
+                            <router-link to="/">
+                                <img :src="subItem.img" alt />
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -41,14 +47,12 @@
             <div class="item-content-bottom">
                 <div
                     class="item-content-bottom-img"
-                    v-for="(subImg, index) in 3"
+                    v-for="(subImg, index) in item.itemContent"
                     :key="index"
                 >
-                    <a>
-                        <img
-                            src="https://powerdos.github.io/Mall-Vue/static/img/index/eat/item-eat-1-6.jpg"
-                        />
-                    </a>
+                    <router-link to="/">
+                        <img :src="subImg" />
+                    </router-link>
                 </div>
             </div>
         </div>

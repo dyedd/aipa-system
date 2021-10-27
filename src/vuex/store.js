@@ -8,9 +8,28 @@ const store = createStore({
             username: "",
             group: "",
         },
+        goodsSort: [],
         goodsList: [], // 商品列表
         shoppingCart: [], // 购物车
         newShoppingCart: [],
+        marketing: {
+            // 营销
+            CarouselItems: [], // 轮播图
+            activity: [], // 活动
+        },
+        seckills: {
+            // 秒杀
+            deadline: {
+                hours: 0,
+                minute: 0,
+                seconds: 0,
+            },
+            goodsList: [],
+        },
+        // 新品上架
+        newGoodsList: [],
+        // 热门商品
+        hotGoodsList: [],
     },
     getters,
     actions,

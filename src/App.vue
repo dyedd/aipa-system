@@ -4,6 +4,7 @@
 import { useStore } from "vuex"
 const store = useStore()
 store.dispatch("isLogin")
+store.dispatch("loadPanelSort")
 </script>
 
 <template>

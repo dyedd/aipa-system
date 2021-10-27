@@ -1,8 +1,11 @@
 <script setup>
 import { computed, ref } from "@vue/reactivity"
-let seckillsHours = ref(1)
-let seckillsMinutes = ref(38)
-let seckillsSeconds = ref(36)
+import { useStore } from "vuex"
+const store = useStore()
+store.dispatch("loadSeckillsInfo")
+let seckillsHours = ref(store.state.seckills.deadline.hours)
+let seckillsMinutes = ref(store.state.seckills.deadline.minute)
+let seckillsSeconds = ref(store.state.seckills.deadline.seconds)
 const reduceTime = () => {
     seckillsSeconds.value--
     if (seckillsSeconds.value === -1) {
@@ -35,6 +38,7 @@ let interval = setInterval(() => {
         clearTimeout(interval)
     }
 }, 1000)
+const seckillGoods = store.state.seckills.goodsList
 </script>
 <template>
     <div class="seckill">
@@ -52,33 +56,35 @@ let interval = setInterval(() => {
                 <span class="count-down-text">当前场次</span>
                 <span class="count-down-num count-down-hour">{{ hours }}</span>
                 <span class="count-down-point">:</span>
-                <span class="count-down-num count-down-minute">{{
-                    minutes
-                }}</span>
+                <span class="count-down-num count-down-minute">
+                    {{ minutes }}
+                </span>
                 <span class="count-down-point">:</span>
-                <span class="count-down-num count-down-seconds">{{
-                    seconds
-                }}</span>
+                <span class="count-down-num count-down-seconds">
+                    {{ seconds }}
+                </span>
                 <span class="count-down-text">后结束抢购</span>
             </div>
         </div>
         <div class="seckill-content">
-            <div class="seckill-item" v-for="(item, index) in 6" :key="index">
+            <div
+                class="seckill-item"
+                v-for="(item, index) in seckillGoods"
+                :key="index"
+            >
                 <div class="seckill-item-img">
                     <a>
-                        <img
-                            src="https://powerdos.github.io/Mall-Vue/static/img/index/seckill/seckill-item1.jpg"
-                        />
+                        <img :src="item.img" />
                     </a>
                 </div>
                 <div class="seckill-item-info">
-                    <p>【赠小风扇】维他 柠檬茶250ml*32盒 礼品装 整箱</p>
+                    <p>{{ item.intro }}</p>
                     <p>
-                        <span class="seckill-price text-danger">
-                            ￥{{ 2.5 }}
-                        </span>
+                        <span class="seckill-price text-danger"
+                            >￥{{ item.price }}</span
+                        >
                         <span class="seckill-old-price">
-                            <s>{{ 4 }}</s>
+                            <s>{{ item.realPrice }}</s>
                         </span>
                     </p>
                 </div>
@@ -199,6 +205,14 @@ let interval = setInterval(() => {
     padding-right: 1.5rem;
     font-size: 1.2rem;
     color: $secondary-text-color;
+    & > p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        height: 3.2rem;
+    }
     i {
         &:first-child {
             font-size: 1.4rem;

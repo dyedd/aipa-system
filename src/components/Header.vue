@@ -27,8 +27,8 @@ const input = ref("")
                     router
                 >
                     <el-menu-item index="/">首页</el-menu-item>
-                    <el-menu-item index="2">关于我们</el-menu-item>
-                    <el-menu-item index="3">商店</el-menu-item>
+                    <el-menu-item index="/seller">商家管理</el-menu-item>
+                    <el-menu-item index="/login">登录</el-menu-item>
                 </el-menu>
             </el-col>
             <el-col :span="3">

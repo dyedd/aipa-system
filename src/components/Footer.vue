@@ -144,7 +144,10 @@
                             </p>
                         </div>
                         <div class="banner-footer">
-                            <img src="../assets/menuadd.jpg" alt="GreenTech" />
+                            <img
+                                src="https://aipi-tust.obs.cn-north-4.myhuaweicloud.com:443/menuadd.jpg?AccessKeyId=8RHBCBRi1WpgLjor2pPw&Expires=1635313763&response-content-disposition=inline&Signature=gfpSN2hqChKsn/a00t63NmiKlYs%3D"
+                                alt="GreenTech"
+                            />
                         </div>
                     </div>
                 </el-col>

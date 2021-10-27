@@ -1,25 +1,15 @@
 <script setup>
 import { reactive, ref } from "@vue/reactivity"
-import { panelData } from "../../utils/panelData"
-import p1 from "../../assets/carousel/1.jpg"
-import p2 from "../../assets/carousel/2.jpg"
-import p3 from "../../assets/carousel/3.jpg"
 import { onMounted } from "@vue/runtime-core"
 import SumChart from "./SumChart.vue"
-const carouselItem = reactive([
-    {
-        url: "#",
-        image: p1,
-    },
-    {
-        url: "#",
-        image: p2,
-    },
-    {
-        url: "#",
-        image: p3,
-    },
-])
+import { useStore } from "vuex"
+import { useRouter } from "vue-router"
+const store = useStore()
+const router = useRouter()
+store.dispatch("loadCarouselItems")
+const panelData = store.state.goodsSort
+const carouselItem = store.state.marketing.CarouselItems
+const activity = store.state.marketing.activity
 const panel = ref(null)
 const panelRight = ref(false)
 const showDetail = index => {
@@ -35,6 +25,9 @@ const iteamDetail = ref()
 const isActive = ref(0)
 const handleBar = index => {
     isActive.value = index
+}
+const toLogin = () => {
+    router.push("/login")
 }
 const barItem = [
     [
@@ -162,18 +155,11 @@ onMounted(() => {
                 </el-carousel-item>
             </el-carousel>
             <div class="home-recommendCard">
-                <a href="#" target="_blank">
-                    <img
-                        src="https://image.cnhnb.com/image/jpg/miniapp/2021/10/15/d2569b7b6c1c4ea4a2d43eafa6253fbe.jpg"
-                        alt
-                    />
-                </a>
-                <a href="#" target="_blank">
-                    <img
-                        src="https://image.cnhnb.com/image/jpg/miniapp/2021/10/20/c620f9898f8b4fcaa42a6f449afe733f.jpg"
-                        alt
-                    />
-                </a>
+                <template v-for="item in activity" :key="item.image">
+                    <a :href="item.url" target="_blank">
+                        <img :src="item.image" alt />
+                    </a>
+                </template>
             </div>
         </el-col>
         <el-col :span="5">
@@ -181,8 +167,12 @@ onMounted(() => {
                 <div class="card-header">
                     <div class="title">欢迎来到利民宝~</div>
                     <div class="title-btn">
-                        <el-button type="success">请登录</el-button>
-                        <el-button type="success" plain>免费注册</el-button>
+                        <el-button type="success" @click="toLogin"
+                            >请登录</el-button
+                        >
+                        <el-button type="success" plain @click="toLogin"
+                            >免费注册</el-button
+                        >
                     </div>
                 </div>
                 <div class="tabs">
@@ -281,6 +271,9 @@ onMounted(() => {
             color: #646464;
             letter-spacing: 0;
             text-decoration: none;
+            &:hover {
+                color: $primary-color;
+            }
         }
     }
     .item-pop {
