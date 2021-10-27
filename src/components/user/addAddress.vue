@@ -35,7 +35,7 @@ const ruleInline = {
 const add = () => {
     form.value.validate(valid => {
         if (valid) {
-            store.commit("ET_USER_ADDRESS", formData)
+            store.commit("ADD_USER_ADDRESS", formData)
             ElMessage({
                 message: "添加成功",
                 type: "success",

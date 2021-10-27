@@ -308,3 +308,24 @@ export const loadAddress = ({ commit }) => {
         commit("SET_USER_ADDRESS", address)
     })
 }
+// 添加购物车
+export const addShoppingCart = ({ commit }, data) => {
+    return new Promise((resolve, reject) => {
+        commit("ADD_SHOPPING_CART", data)
+    })
+}
+//   加载购物车
+export const loadShoppingCart = ({ commit }) => {
+    return new Promise((resolve, reject) => {
+        const data = [
+            {
+                count: 1,
+                img: "https://image.cnhnb.com/image/jpeg/head/2021/03/01/2d6fcca804ec4daab7b7a2bd9aa9dfe0.jpeg?imageView2/1/w/525/h/525/format/jpg/interlace/1/quality/100/ignore-error/1",
+                package: "一斤",
+                price: 28,
+                title: "苹果",
+            },
+        ]
+        commit("SET_SHOPPING_CART", data)
+    })
+}

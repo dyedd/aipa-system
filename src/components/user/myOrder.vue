@@ -51,7 +51,11 @@ const handleDelete = (index, row) => {
         style="width: 100%"
     >
         <el-table-column label="订单号" prop="goods_id" />
-        <el-table-column label="图片" prop="img" />
+        <el-table-column label="图片">
+            <template #default="scope">
+                <img :src="scope.row.img" style="width: 5rem" alt />
+            </template>
+        </el-table-column>
         <el-table-column label="标题" prop="title" />
         <el-table-column label="套餐" prop="package" />
         <el-table-column label="数量" prop="count" />
