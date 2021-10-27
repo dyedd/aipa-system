@@ -21,6 +21,11 @@ const routes = [
         name: "adminRoot",
     },
     {
+        path: "/order",
+        component: () => import("./views/Order.vue"),
+        name: "order",
+    },
+    {
         path: "/home",
         component: () => import("./views/User.vue"),
         name: "User",
