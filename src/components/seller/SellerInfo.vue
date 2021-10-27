@@ -1,24 +1,46 @@
 <script setup>
 import { reactive, ref } from "@vue/reactivity"
 import {
-    fetchSellerInfo,
+    fetchSellerInfoById,
     generateModifiableSellerInfo,
-    pushSellerInfo,
+    updateSellerInfoById,
 } from "../../utils/sellerInfo.js"
+import { uploadFile } from "../../utils/commonApi.js"
+import { getUserId } from "../../utils/userInfo.js"
 
 let editorVisible = ref(false)
 
-const sellerInfo = reactive(fetchSellerInfo())
+const sellerInfo = ref({})
 
-const modifedInfo = reactive(generateModifiableSellerInfo(sellerInfo))
+const modifedInfo = ref({})
+
+async function init() {
+    sellerInfo.value = await fetchSellerInfoById(getUserId())
+    modifedInfo.value = generateModifiableSellerInfo(sellerInfo.value)
+}
+init().then(() => {})
 
 function pushInfo() {
-    Object.assign(sellerInfo, pushSellerInfo(modifedInfo))
+    updateSellerInfoById(modifedInfo.value.id, modifedInfo.value).then(res => {
+        sellerInfo.value = res
+        modifedInfo.value = generateModifiableSellerInfo(res)
+    })
 }
 
 function pushHandler() {
     pushInfo()
     editorVisible.value = false
+}
+
+const profilePictureUploader = ref()
+function profilePictureUpload() {
+    const files = profilePictureUploader.value.files
+    if (files !== 0) {
+        uploadFile(files[0]).then(result => {
+            modifedInfo.value.profilePicture = result
+            pushInfo()
+        })
+    }
 }
 </script>
 
@@ -63,6 +85,8 @@ function pushHandler() {
                     >点击选择一张1:1的图片上传</label
                 >
                 <input
+                    ref="profilePictureUploader"
+                    @change="profilePictureUpload"
                     id="seller-profile-pic-upload"
                     type="file"
                     accept="image/*"

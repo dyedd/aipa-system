@@ -15,11 +15,27 @@ const exampleSellerInfo = {
 /**
  * fetch information from server and return,
  *
- * @return sellerInfo, type defined above
+ * @param id, type: number
+ * @return Promise<SellerInfo>, type defined above
  */
-export function fetchSellerInfo() {
-    return exampleSellerInfo
+export function fetchSellerInfoById(id) {
+    return Promise.resolve({
+        ...exampleSellerInfo,
+        id: id,
+    })
 }
+
+/**
+ * send new information to server
+ * @param id type: number
+ * @param modifiableInfo returned from generateModifiableInfo
+ * @return Promise<SellerInfo> new sellerInfo returned from server
+ */
+export async function updateSellerInfoById(id, modifiableSellerInfo) {
+    const res = await fetchSellerInfoById(id)
+    return { ...res, ...modifiableSellerInfo, id }
+}
+
 /**
  * generate modifiableInfo, for saving and post modifed information
  * modifedInfo defined in function
@@ -35,13 +51,4 @@ export function generateModifiableSellerInfo(sellerInfo) {
         description: sellerInfo.description, //type: str
     }
     return modifiableInfo
-}
-
-/**
- * send new information to server
- * @param modifiableInfo returned from generateModifiableInfo
- * @return sellerInfo new sellerInfo returned from server
- */
-export function pushSellerInfo(modifiableSellerInfo) {
-    return { ...exampleSellerInfo, ...modifiableSellerInfo }
 }
