@@ -6,7 +6,7 @@ import {
     readItem,
     updateItem,
 } from "./db/item-repository"
-import { getUserId } from "./userInfo"
+import { getSellerId } from "./userInfo"
 
 const exampleBasicItemInfo = {
     id: 1, //type: number
@@ -78,7 +78,7 @@ export function createItem(item) {
     //        ...newItem,
     //        id: randomInt(1000) + 1000,
     //    })
-    return Promise.resolve(newItem(item, getUserId()))
+    return Promise.resolve(newItem(item, getSellerId()))
 }
 
 /*

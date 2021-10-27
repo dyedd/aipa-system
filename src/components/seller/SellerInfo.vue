@@ -6,19 +6,25 @@ import {
     updateSellerInfoById,
 } from "../../utils/sellerInfo.js"
 import { uploadFile } from "../../utils/commonApi.js"
-import { getUserId } from "../../utils/userInfo.js"
+import { getSellerId } from "../../utils/userInfo.js"
+import { watchEffect } from "vue-demi"
+import { useStore } from "vuex"
 
+const store = useStore()
 let editorVisible = ref(false)
 
 const sellerInfo = ref({})
 
 const modifedInfo = ref({})
 
-async function init() {
-    sellerInfo.value = await fetchSellerInfoById(getUserId())
-    modifedInfo.value = generateModifiableSellerInfo(sellerInfo.value)
-}
-init().then(() => {})
+watchEffect(() => {
+    if (store.state.sellerInfo.id !== -1) {
+        fetchSellerInfoById(store.state.sellerInfo.id).then(res => {
+            sellerInfo.value = res
+            modifedInfo.value = generateModifiableSellerInfo(sellerInfo.value)
+        })
+    }
+})
 
 function pushInfo() {
     updateSellerInfoById(modifedInfo.value.id, modifedInfo.value).then(res => {
@@ -94,32 +100,32 @@ function profilePictureUpload() {
             </div>
             <div class="text-container">
                 <div class="info-item">
-                    <span class="info-key">商店名</span
-                    ><span class="info-value">{{ sellerInfo.name }}</span>
+                    <span class="info-key">商店名</span>
+                    <span class="info-value">{{ sellerInfo.name }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-key">加入时间</span
-                    ><span class="info-value">{{ sellerInfo.joinTime }}</span>
+                    <span class="info-key">加入时间</span>
+                    <span class="info-value">{{ sellerInfo.joinTime }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-key">产地</span
-                    ><span class="info-value">{{ sellerInfo.location }}</span>
+                    <span class="info-key">产地</span>
+                    <span class="info-value">{{ sellerInfo.location }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-key">商品数量</span
-                    ><span class="info-value">{{ sellerInfo.itemCount }}</span>
+                    <span class="info-key">商品数量</span>
+                    <span class="info-value">{{ sellerInfo.itemCount }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-key">销售量</span
-                    ><span class="info-value">{{
-                        sellerInfo.salesVolume
-                    }}</span>
+                    <span class="info-key">销售量</span>
+                    <span class="info-value">
+                        {{ sellerInfo.salesVolume }}
+                    </span>
                 </div>
                 <div class="info-item">
-                    <span class="info-key">简介</span
-                    ><span class="info-value">{{
-                        sellerInfo.description
-                    }}</span>
+                    <span class="info-key">简介</span>
+                    <span class="info-value">
+                        {{ sellerInfo.description }}
+                    </span>
                 </div>
             </div>
         </div>

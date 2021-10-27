@@ -3,6 +3,6 @@ import store from "../vuex/store"
 /**
  * @return userId type: number
  */
-export function getUserId() {
-    return store.state.userInfo.id
+export function getSellerId() {
+    return store.state.sellerInfo.id
 }

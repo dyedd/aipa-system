@@ -1,7 +1,7 @@
 <script setup>
 import { commonNavigator } from "../../utils/utils"
 import { fetchBillsBySellerId } from "../../utils/bills"
-import { getUserId } from "../../utils/userInfo"
+import { getSellerId } from "../../utils/userInfo"
 import Pager from "../../components/seller/widgets/Pager.vue"
 import { ref } from "vue-demi"
 import Bills from "../../components/seller/Bills.vue"
@@ -12,7 +12,7 @@ const billsInfo = ref({})
 const bills = ref([])
 const navigate = commonNavigator(
     page => {
-        return fetchBillsBySellerId(getUserId(), page, 30)
+        return fetchBillsBySellerId(getSellerId(), page, 30)
     },
     0,
     async res => {

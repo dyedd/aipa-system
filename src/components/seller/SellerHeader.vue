@@ -7,10 +7,13 @@ import {
     watchEffect,
 } from "@vue/runtime-core"
 import { useRoute, useRouter } from "vue-router"
+import { useStore } from "vuex"
 import logo from "../../assets/logo.png"
 import { SELLER_PATH_PREFIX } from "../../views/seller/seller-router"
+import SellerEntry from "../../views/seller/SellerEntry.vue"
 
 const router = useRouter()
+const store = useStore()
 const activeIndex = ref("SellerHome")
 const handleSelect = key => {
     router.push(SELLER_PATH_PREFIX + "/" + key)
@@ -44,9 +47,40 @@ onUnmounted(() => {
         stopAfterEachListener()
     }
 })
+
+const entryVisible = ref(false)
+const register = ref(false)
+function showLogin() {
+    entryVisible.value = true
+    register.value = false
+}
+function showRegister() {
+    entryVisible.value = register.value = true
+}
 </script>
 
 <template>
+    <el-dialog
+        v-model="entryVisible"
+        :title="register ? '商家注册' : '商家登陆'"
+        width="65rem"
+    >
+        <SellerEntry
+            :register-state="register"
+            @to-login="showLogin()"
+            @to-register="showRegister()"
+            @confirmed="entryVisible = false"
+        />
+    </el-dialog>
+    <div class="notification">
+        <div class="login-notification" v-if="store.state.sellerInfo.id === -1">
+            <h1 class="title">检测到您现在未登录</h1>
+            <div class="operations">
+                <el-button @click="showRegister()">成为商家</el-button>
+                <el-button @click="showLogin()">立即登陆</el-button>
+            </div>
+        </div>
+    </div>
     <el-row
         justify="space-between"
         align="middle"
@@ -80,6 +114,24 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
+@import "../../components/seller/style/common.scss";
+.notification {
+    @include center;
+    background-color: #fff;
+
+    .login-notification {
+        @include main-panel;
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+        margin-top: 0.5rem;
+
+        .title {
+            color: secondary-text-color;
+            font-size: 1.6rem;
+        }
+    }
+}
 .container {
     height: $header-height;
     background-color: #fff;

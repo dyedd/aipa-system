@@ -2,6 +2,7 @@ import ItemDetail from "./ItemDetail.vue"
 import SellerHome from "./SellerHome.vue"
 import ItemManagement from "./ItemManagement.vue"
 import BillManagement from "./BillManagement.vue"
+import SellerEntry from "./SellerEntry.vue"
 export const SELLER_PATH_PREFIX = "/seller"
 export const sellerRouter = [
     {

@@ -23,10 +23,10 @@ export const ADD_SHOPPING_CART = (state, data) => {
 export const SET_SHOPPING_CART = (state, data) => {
     state.shoppingCart = data
 }
-// 设置收获地址
-export const SET_USER_ADDRESS = (state, data) => {
-    state.address = data
-}
+//// 设置收获地址
+//export const SET_USER_ADDRESS = (state, data) => {
+//    state.address = data
+//}
 // 设置轮播(营销)图
 export const SET_CAROUSELITEMS_INFO = (state, { carouselItems, activity }) => {
     state.marketing.CarouselItems = carouselItems
@@ -48,4 +48,12 @@ export const SET_HOT_INFO = (state, data) => {
 // 添加收获地址
 export const SET_USER_ADDRESS = (state, data) => {
     state.address = [...data, ...state.address]
+}
+
+export const SELLER_LOGIN = (state, data) => {
+    state.sellerInfo.id = data.id
+    state.sellerInfo.name = data.name
+    state.sellerInfo.username = data.username
+    const { username, password } = data
+    localStorage.setItem("sellerLogin", JSON.stringify({ username, password }))
 }

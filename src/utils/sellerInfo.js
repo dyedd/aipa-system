@@ -1,5 +1,12 @@
+import {
+    getSellerInfoById,
+    newSeller,
+    updateSellerById,
+    validatePassByUsn,
+} from "./db/sellers-repository"
 const exampleSellerInfo = {
     id: 1, //type: number
+    username: "", //type: str
     name: "江南皮革厂", //type: str
     joinTime: "2021-01-01", //type: TBD
     location: "浙江 温州", //type: str
@@ -12,6 +19,23 @@ const exampleSellerInfo = {
     //简介
     description: "", //type: str
 }
+
+export function login({ username, password }) {
+    return new Promise((resolve, reject) => {
+        const result = validatePassByUsn(username, password)
+        if (result === -1) {
+            reject(new Error("密码错误"))
+        }
+        if (result === null) {
+            reject(new Error("用户不存在"))
+        }
+        resolve(result)
+    })
+}
+export function register(info) {
+    return Promise.resolve(newSeller(info))
+}
+
 /**
  * fetch information from server and return,
  *
@@ -19,9 +43,17 @@ const exampleSellerInfo = {
  * @return Promise<SellerInfo>, type defined above
  */
 export function fetchSellerInfoById(id) {
-    return Promise.resolve({
-        ...exampleSellerInfo,
-        id: id,
+    //    return Promise.resolve({
+    //        ...exampleSellerInfo,
+    //        id: id,
+    //    })
+    return new Promise((resolve, reject) => {
+        const result = getSellerInfoById(id)
+        if (result) {
+            resolve(result)
+        } else {
+            reject(new Error("NOT FOUND"))
+        }
     })
 }
 
@@ -32,8 +64,16 @@ export function fetchSellerInfoById(id) {
  * @return Promise<SellerInfo> new sellerInfo returned from server
  */
 export async function updateSellerInfoById(id, modifiableSellerInfo) {
-    const res = await fetchSellerInfoById(id)
-    return { ...res, ...modifiableSellerInfo, id }
+    //    const res = await fetchSellerInfoById(id)
+    //    return { ...res, ...modifiableSellerInfo, id }
+    return new Promise((resolve, reject) => {
+        const result = updateSellerById(id, modifiableSellerInfo)
+        if (result) {
+            resolve(result)
+        } else {
+            reject(new Error("NOT FOUND"))
+        }
+    })
 }
 
 /**

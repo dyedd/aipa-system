@@ -4,7 +4,7 @@ import Pager from "../../components/seller/widgets/Pager.vue"
 import { ref } from "@vue/reactivity"
 import Item from "../../components/seller/Item.vue"
 import { fetchItemsBySellerId, createItem } from "../../utils/items"
-import { getUserId } from "../../utils/userInfo"
+import { getSellerId } from "../../utils/userInfo"
 import { hasMoreItems } from "../../utils/items.js"
 import { commonNavigator } from "../../utils/utils.js"
 import ItemEditor from "../../components/seller/ItemEditor.vue"
@@ -17,7 +17,7 @@ const newItemDialogVisible = ref(false)
 
 const navigate = commonNavigator(
     page => {
-        return fetchItemsBySellerId(getUserId(), page, ITEMS_PER_PAGE)
+        return fetchItemsBySellerId(getSellerId(), page, ITEMS_PER_PAGE)
     },
     0,
     async value => {

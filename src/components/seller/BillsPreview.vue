@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watchEffect } from "vue-demi"
 import { fetchBillsBySellerId } from "../../utils/bills"
-import { getUserId } from "../../utils/userInfo"
+import { getSellerId } from "../../utils/userInfo"
 import Bills from "./Bills.vue"
 const billsInfo = ref({})
 const bills = ref([])
@@ -9,7 +9,7 @@ const BILLS_ON_PREVIEW = 15
 
 async function init() {
     billsInfo.value = await fetchBillsBySellerId(
-        getUserId(),
+        getSellerId(),
         0,
         BILLS_ON_PREVIEW,
     )

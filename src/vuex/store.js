@@ -9,6 +9,11 @@ const store = createStore({
             group: "",
             id: 0,
         },
+        sellerInfo: {
+            id: -1,
+            name: "",
+            username: "",
+        },
         goodsSort: [],
         goodsList: [], // 商品列表
         shoppingCart: [], // 购物车

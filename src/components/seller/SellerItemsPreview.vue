@@ -1,11 +1,11 @@
 <script setup>
 import { ref } from "@vue/reactivity"
 import { fetchItemsBySellerId, hasMoreItems } from "../../utils/items.js"
-import { getUserId } from "../../utils/userInfo.js"
+import { getSellerId } from "../../utils/userInfo.js"
 import { PLACEHOLDER_IMAGE_PATH } from "../constants.js"
 const itemInfo = ref({})
 const items = ref([])
-fetchItemsBySellerId(getUserId(), 0, 8).then(res => {
+fetchItemsBySellerId(getSellerId(), 0, 8).then(res => {
     itemInfo.value = res
     items.value = res.value
 })
