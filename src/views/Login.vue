@@ -95,6 +95,11 @@ const onSubmit = () => {
             if (valid) {
                 const flag = store.dispatch("register", {
                     username: register.username,
+                    passwd: register.passwd,
+                })
+                store.dispatch("autoLogin", {
+                    username: register.username,
+                    passwd: register.passwd,
                 })
                 if (flag) {
                     router.push("/")

@@ -6,7 +6,10 @@ export const register = ({ commit }, data) => {
         if (userArr) {
             users = JSON.parse(userArr)
         }
-        users.push({ ...data, group: 0 })
+        users.push({
+            ...data,
+            group: 0,
+        })
         localStorage.setItem("users", JSON.stringify(users))
     })
 }
@@ -17,7 +20,10 @@ export const login = ({ commit }, data) => {
         if (data.username === "zhangsan" && data.password === "123456") {
             localStorage.setItem(
                 "loginInfo",
-                JSON.stringify({ ...data, group: 2 }),
+                JSON.stringify({
+                    ...data,
+                    group: 2,
+                }),
             )
             commit("SET_USER_LOGIN_INFO", data)
             resolve(true)
@@ -46,7 +52,20 @@ export const signOut = ({ commit }) => {
     localStorage.removeItem("loginInfo")
     commit("SET_USER_LOGIN_INFO", {})
 }
-
+// 自动登录
+export const autoLogin = ({ commit }, data) => {
+    return new Promise((resolve, reject) => {
+        localStorage.setItem(
+            "loginInfo",
+            JSON.stringify({
+                ...data,
+                group: 2,
+            }),
+        )
+        commit("SET_USER_LOGIN_INFO", data)
+        resolve(true)
+    })
+}
 // 判断是否登陆
 export const isLogin = ({ commit }) => {
     const user = localStorage.getItem("loginInfo")
