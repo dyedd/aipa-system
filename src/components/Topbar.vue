@@ -5,13 +5,14 @@ import { useRouter } from "vue-router"
 const store = useStore()
 const router = useRouter()
 const userInfo = store.state.userInfo
+store.dispatch("loadShoppingCart")
 const shoppingCart = store.state.shoppingCart
 let cartShow = ref(false)
 const handleShow = () => {
     cartShow.value = !cartShow.value
 }
 const myInfo = () => {
-    router.push("/home")
+    router.push("/home/myOrder")
 }
 const signOutFun = () => {
     store.dispatch("signOut")
@@ -137,8 +138,8 @@ const goToPay = () => {
                             </div>
                         </div>
                         <div class="go-to-buy">
-                            <Button type="error" size="small" @click="goToPay"
-                                >去结账</Button
+                            <el-button type="warning" @click="goToPay"
+                                >去结账</el-button
                             >
                         </div>
                     </div>
