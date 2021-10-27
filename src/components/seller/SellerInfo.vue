@@ -48,6 +48,10 @@ function profilePictureUpload() {
         })
     }
 }
+
+function handleLogout() {
+    store.commit("SELLER_LOGOUT")
+}
 </script>
 
 <template>
@@ -101,7 +105,14 @@ function profilePictureUpload() {
             <div class="text-container">
                 <div class="info-item">
                     <span class="info-key">商店名</span>
-                    <span class="info-value">{{ sellerInfo.name }}</span>
+                    <span class="info-value"
+                        >{{ sellerInfo.name
+                        }}<el-button
+                            v-if="store.state.sellerInfo.id !== -1"
+                            @click="handleLogout()"
+                            >退出登陆</el-button
+                        ></span
+                    >
                 </div>
                 <div class="info-item">
                     <span class="info-key">加入时间</span>

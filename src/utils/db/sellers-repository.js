@@ -1,3 +1,5 @@
+import { generateId } from "../utils"
+
 const SELLER_INDEX = "seller"
 
 function getRaw() {
@@ -30,9 +32,17 @@ export function getAllSellers() {
 }
 export function newSeller(seller) {
     const allSellers = getAllSellers()
+    for (let existedSeller of allSellers) {
+        if (existedSeller.username === seller.username) {
+            return -1
+        }
+    }
     seller = {
         ...seller,
-        id: allSellers.length,
+        id: generateId(allSellers),
+        joinTime: new Date().toLocaleString(),
+        itemCount: 0,
+        salesVolume: 0,
     }
     allSellers.push(seller)
     saveAll(allSellers)
@@ -48,6 +58,16 @@ export function updateSellerById(id, newInfo) {
         }
     }
     return null
+}
+export function deleteSellerById(id) {
+    const allSellers = getAllSellers()
+    for (let seller of allSellers) {
+        if (seller.id === id) {
+            allSellers.splice(allSellers.indexOf(seller), 1)
+            saveAll(allSellers)
+            return
+        }
+    }
 }
 export function getSellerInfoById(id) {
     for (let seller of getAllSellers()) {

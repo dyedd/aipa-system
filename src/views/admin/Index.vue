@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import SellerManagement from "./SellerManagement.vue"
+</script>
 <template>
     <el-container>
         <el-aside width="200px">
@@ -45,6 +47,7 @@
         <el-container>
             <el-header>Header</el-header>
             <el-main>Main</el-main>
+            <SellerManagement></SellerManagement>
         </el-container>
     </el-container>
 </template>

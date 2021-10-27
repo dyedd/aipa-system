@@ -1,3 +1,5 @@
+import { generateId } from "../utils"
+
 const ITEM_INDEX = "item"
 
 const exampleBasicItemInfo = {
@@ -59,7 +61,7 @@ export function getItemsBySellerIdPaginated(sellerId, page, counts) {
 
 export function newItem(item, sellerId) {
     const items = getAllItems()
-    item.id = items.length
+    item.id = generateId(items)
     items.push({
         ...DefaultDetailItemInfo,
         ...item,

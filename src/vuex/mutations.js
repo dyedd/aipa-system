@@ -57,3 +57,8 @@ export const SELLER_LOGIN = (state, data) => {
     const { username, password } = data
     localStorage.setItem("sellerLogin", JSON.stringify({ username, password }))
 }
+
+export const SELLER_LOGOUT = state => {
+    state.sellerInfo.id = -1
+    localStorage.setItem("sellerLogin", "")
+}

@@ -1,4 +1,6 @@
 import {
+    deleteSellerById,
+    getAllSellers,
     getSellerInfoById,
     newSeller,
     updateSellerById,
@@ -33,7 +35,13 @@ export function login({ username, password }) {
     })
 }
 export function register(info) {
-    return Promise.resolve(newSeller(info))
+    return new Promise((res, rej) => {
+        const result = newSeller(info)
+        if (result === -1) {
+            rej(new Error("用户名已存在"))
+        }
+        res(result)
+    })
 }
 
 /**
@@ -76,6 +84,10 @@ export async function updateSellerInfoById(id, modifiableSellerInfo) {
     })
 }
 
+export function fetchAllSellers() {
+    return Promise.resolve(getAllSellers())
+}
+
 /**
  * generate modifiableInfo, for saving and post modifed information
  * modifedInfo defined in function
@@ -91,4 +103,11 @@ export function generateModifiableSellerInfo(sellerInfo) {
         description: sellerInfo.description, //type: str
     }
     return modifiableInfo
+}
+
+export function removeSellerById(id) {
+    return new Promise((resolve, reject) => {
+        deleteSellerById(id)
+        resolve()
+    })
 }

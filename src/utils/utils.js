@@ -50,3 +50,14 @@ export function randomInt(a) {
 export function randomChoose(list) {
     return list[randomInt(list.length)]
 }
+
+export function generateId(arrayOfEntityLike) {
+    if (arrayOfEntityLike.length === 0) {
+        return 0
+    }
+    return (
+        arrayOfEntityLike.reduce((pre, cur) => {
+            return cur.id > pre.id ? cur : pre
+        }).id + 1
+    )
+}
