@@ -36,9 +36,10 @@ async function init() {
             return fetchReviewsByItemId(item.value.id, page, REVIEWS_PER_PAGE)
         },
         0,
-        value => {
+        async value => {
             reviewInfo.value = value
             reviews.value = value.value
+            return true
         },
         {
             init: true,

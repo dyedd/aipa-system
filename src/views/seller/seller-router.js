@@ -1,6 +1,7 @@
 import ItemDetail from "./ItemDetail.vue"
 import SellerHome from "./SellerHome.vue"
 import ItemManagement from "./ItemManagement.vue"
+import BillManagement from "./BillManagement.vue"
 export const SELLER_PATH_PREFIX = "/seller"
 export const sellerRouter = [
     {
@@ -21,6 +22,11 @@ export const sellerRouter = [
                 path: "item-management",
                 component: ItemManagement,
                 name: "ItemManagement",
+            },
+            {
+                path: "bill-management",
+                component: BillManagement,
+                name: "BillManagement",
             },
             {
                 path: "",

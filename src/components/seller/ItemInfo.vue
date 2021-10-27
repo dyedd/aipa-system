@@ -59,27 +59,7 @@ const props = defineProps({
     }
 
     .text-info {
-        > .item {
-            margin-bottom: 1.5rem;
-        }
-        > .item:last-child {
-            margin-bottom: 0;
-        }
-        .item {
-            display: flex;
-            align-items: center;
-
-            .key {
-                flex: 0 0 10rem;
-                font-size: 1.6rem;
-                color: $secondary-color;
-                font-weight: bolder;
-            }
-
-            .value {
-                font-size: 1.6rem;
-            }
-        }
+        @include key-value;
     }
 }
 </style>

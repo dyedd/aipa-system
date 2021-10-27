@@ -3,7 +3,7 @@
  * NOTE: the return function do NOT check whether the page to navigate is overbound(below zero or exceed pageCounts -1)
  * @param fetchFunc type: (page: number) => Promise<PageLike>
  * @param initPage type: number
- * @param callback type: (result: Promise<PageLike>) => Promise<any>
+ * @param callback type: (result: PageLike) => Promise<any>
  * @return navigate type: (offset: number) => void
  */
 export function commonNavigator(
@@ -38,4 +38,12 @@ export function commonNavigator(
  */
 export function randomInt(a) {
     return Math.floor(Math.random() * a)
+}
+
+/*
+ * @param list: an array-like object
+ * @return list[RANDOM]
+ */
+export function randomChoose(list) {
+    return list[randomInt(list.length)]
 }

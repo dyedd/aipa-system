@@ -20,7 +20,7 @@ const navigate = commonNavigator(
         return fetchItemsBySellerId(getUserId(), page, ITEMS_PER_PAGE)
     },
     0,
-    value => {
+    async value => {
         itemInfo.value = value
         items.value = value.value
         return true
