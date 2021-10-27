@@ -97,7 +97,6 @@ const onSubmit = () => {
                     username: register.username,
                 })
                 if (flag) {
-                    store.dispatch("isLogin")
                     router.push("/")
                     ElMessage({
                         message: "注册成功!",
