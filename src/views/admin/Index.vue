@@ -1,5 +1,6 @@
 <script setup>
 import SellerManagement from "./SellerManagement.vue"
+import ItemManagementByAdminVue from "./ItemManagementByAdmin.vue"
 </script>
 <template>
     <el-container>
@@ -48,6 +49,7 @@ import SellerManagement from "./SellerManagement.vue"
             <el-header>Header</el-header>
             <el-main>Main</el-main>
             <SellerManagement></SellerManagement>
+            <ItemManagementByAdminVue></ItemManagementByAdminVue>
         </el-container>
     </el-container>
 </template>

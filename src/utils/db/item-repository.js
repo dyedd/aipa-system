@@ -1,4 +1,5 @@
 import { generateId } from "../utils"
+import { getSellerInfoById } from "./sellers-repository"
 
 const ITEM_INDEX = "item"
 
@@ -66,6 +67,7 @@ export function newItem(item, sellerId) {
         ...DefaultDetailItemInfo,
         ...item,
         sellerId: sellerId,
+        sellerName: getSellerInfoById(sellerId).name,
     })
     setRaw(JSON.stringify(items))
     return item

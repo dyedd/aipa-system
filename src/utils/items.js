@@ -6,6 +6,7 @@ import {
     readItem,
     updateItem,
     searchItemsByKeywordAndSellerId,
+    getAllItems,
 } from "./db/item-repository"
 import { getSellerId } from "./userInfo"
 
@@ -117,6 +118,10 @@ export function fetchItemById(id) {
             reject(new Error("NOT FOUND"))
         }
     })
+}
+
+export function fetchAllItems() {
+    return Promise.resolve(getAllItems())
 }
 
 /*

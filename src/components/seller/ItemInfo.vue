@@ -16,6 +16,10 @@ const props = defineProps({
         </div>
         <div class="text-info">
             <div class="item">
+                <div class="key">商店名称</div>
+                <div class="value">{{ item.sellerName }}</div>
+            </div>
+            <div class="item">
                 <div class="key">商品名称</div>
                 <div class="value">{{ item.name }}</div>
             </div>

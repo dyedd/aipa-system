@@ -1,5 +1,6 @@
 import { panelData } from "../utils/panelData"
 import { getAllUsers } from "../utils/db/users"
+import { generateId } from "../utils/utils"
 // 添加注册用户
 export const register = ({ commit }, data) => {
     return new Promise((resolve, reject) => {
@@ -7,7 +8,7 @@ export const register = ({ commit }, data) => {
         users.push({
             ...data,
             group: 0,
-            id: users.length + 1,
+            id: generateId(users),
         })
         localStorage.setItem("users", JSON.stringify(users))
     })
