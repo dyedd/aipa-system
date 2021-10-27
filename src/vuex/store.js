@@ -31,6 +31,8 @@ const store = createStore({
         newGoodsList: [],
         // 热门商品
         hotGoodsList: [],
+        // 收货地址
+        address: [],
     },
     getters,
     actions,

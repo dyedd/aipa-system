@@ -145,7 +145,7 @@
                         </div>
                         <div class="banner-footer">
                             <img
-                                src="https://aipi-tust.obs.cn-north-4.myhuaweicloud.com:443/menuadd.jpg?AccessKeyId=8RHBCBRi1WpgLjor2pPw&Expires=1635313763&response-content-disposition=inline&Signature=gfpSN2hqChKsn/a00t63NmiKlYs%3D"
+                                src="https://aipi-tust.obs.cn-north-4.myhuaweicloud.com:443/menuadd.jpg"
                                 alt="GreenTech"
                             />
                         </div>

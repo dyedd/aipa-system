@@ -45,3 +45,7 @@ export const SET_NEW_GOODS = (state, data) => {
 export const SET_HOT_INFO = (state, data) => {
     state.hotGoodsList = data
 }
+// 添加收获地址
+export const SET_USER_ADDRESS = (state, data) => {
+    state.address = [...data, ...state.address]
+}
