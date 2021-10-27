@@ -1,11 +1,25 @@
 <script setup>
 import { ref } from "@vue/reactivity"
-
+import { useStore } from "vuex"
+import { useRouter } from "vue-router"
+const store = useStore()
+const router = useRouter()
+const userInfo = store.state.userInfo
+const shoppingCart = store.state.shoppingCart
 let cartShow = ref(false)
 const handleShow = () => {
     cartShow.value = !cartShow.value
 }
-let shoppingCart = ref([])
+const myInfo = () => {
+    router.push("/home")
+}
+const signOutFun = () => {
+    store.dispatch("signOut")
+    router.push("/")
+}
+const goToPay = () => {
+    router.push("/order")
+}
 </script>
 <template>
     <el-container>
@@ -15,18 +29,58 @@ let shoppingCart = ref([])
                     <p class="welcome-mes">欢迎来到利民宝 ！</p>
                 </el-col>
                 <el-col :span="4" class="right-info">
-                    <el-button type="text">
-                        <Icon
-                            name="User"
-                            color="#fff"
-                            size="1.6rem"
-                            align="-.3rem"
-                        />
-                        <span class="right-info-item">登录</span>
-                    </el-button>
-                    <el-button type="text">
-                        <span class="right-info-item">注册</span>
-                    </el-button>
+                    <template v-if="!userInfo.username">
+                        <el-button type="text">
+                            <Icon
+                                name="User"
+                                color="#fff"
+                                size="1.6rem"
+                                align="-.3rem"
+                            />
+                            <span class="right-info-item">
+                                <router-link to="/login">登录</router-link>
+                            </span>
+                        </el-button>
+                        <el-button type="text">
+                            <span class="right-info-item">
+                                <router-link to="/login">注册</router-link>
+                            </span>
+                        </el-button>
+                    </template>
+                    <template v-else>
+                        <el-dropdown>
+                            <span class="el-dropdown-link">
+                                <el-avatar
+                                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                                ></el-avatar>
+                                <span class="username">{{
+                                    userInfo.username
+                                }}</span>
+                                <i
+                                    class="el-icon-arrow-down el-icon--right"
+                                ></i>
+                            </span>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item>
+                                        <div class="my-info" @click="myInfo">
+                                            <Icon name="home" />
+                                            <p>我的主页</p>
+                                        </div>
+                                    </el-dropdown-item>
+                                    <el-dropdown-item>
+                                        <div
+                                            class="my-info"
+                                            @click="signOutFun"
+                                        >
+                                            <Icon name="tuichu" />
+                                            <p>退出登录</p>
+                                        </div>
+                                    </el-dropdown-item>
+                                </el-dropdown-menu>
+                            </template>
+                        </el-dropdown>
+                    </template>
                     <el-button type="text" @mouseenter="handleShow">
                         <Icon
                             name="cart"
@@ -67,17 +121,17 @@ let shoppingCart = ref([])
                                 <div class="shopping-cart-detail">
                                     <p>
                                         套餐:
-                                        <span class="shopping-cart-text">{{
-                                            item.package
-                                        }}</span>
+                                        <span class="shopping-cart-text">
+                                            {{ item.package }}
+                                        </span>
                                         数量:
-                                        <span class="shopping-cart-text">{{
-                                            item.count
-                                        }}</span>
+                                        <span class="shopping-cart-text">
+                                            {{ item.count }}
+                                        </span>
                                         价钱:
-                                        <span class="shopping-cart-text">{{
-                                            item.price
-                                        }}</span>
+                                        <span class="shopping-cart-text">
+                                            {{ item.price }}
+                                        </span>
                                     </p>
                                 </div>
                             </div>
@@ -94,6 +148,15 @@ let shoppingCart = ref([])
     </el-container>
 </template>
 <style lang="scss" scoped>
+.el-avatar {
+    width: 3rem;
+    height: 3rem;
+    line-height: 3.6rem;
+    vertical-align: middle;
+}
+.my-info {
+    text-align: center;
+}
 .topbar {
     position: relative;
 }
@@ -115,9 +178,17 @@ let shoppingCart = ref([])
 .right-info {
     line-height: 3.6rem;
     height: 3.6rem;
+    .username {
+        color: #999999;
+        margin-left: 0.5rem;
+    }
 }
 .right-info-item {
     color: $fg-color;
+    a {
+        color: $fg-color;
+        text-decoration: none;
+    }
     border-right: 0.1rem solid $fg-color;
     padding: 0 1rem;
 }
