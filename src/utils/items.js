@@ -5,6 +5,7 @@ import {
     deleteItem,
     readItem,
     updateItem,
+    searchItemsByKeywordAndSellerId,
 } from "./db/item-repository"
 import { getSellerId } from "./userInfo"
 
@@ -139,6 +140,9 @@ export async function updateItemById(id, modifiableDetailItemInfo) {
     })
 }
 
+export function fetchItemsByKeywordAndSellerId(sellerId, keyword) {
+    return Promise.resolve(searchItemsByKeywordAndSellerId(sellerId, keyword))
+}
 export function hasMoreItems(pageLike) {
     if (
         !(

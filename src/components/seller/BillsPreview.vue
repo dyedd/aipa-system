@@ -1,11 +1,13 @@
 <script setup>
 import { ref, watchEffect } from "vue-demi"
+import { useRouter } from "vue-router"
 import { fetchBillsBySellerId } from "../../utils/bills"
 import { getSellerId } from "../../utils/userInfo"
 import Bills from "./Bills.vue"
 const billsInfo = ref({})
 const bills = ref([])
 const BILLS_ON_PREVIEW = 15
+const router = useRouter()
 
 async function init() {
     billsInfo.value = await fetchBillsBySellerId(
@@ -22,7 +24,12 @@ init().then(() => {})
     <div class="bills-preview-content">
         <div class="top-container">
             <h1 class="title">近期订单</h1>
-            <el-button type="success" plain>查看更多</el-button>
+            <el-button
+                type="success"
+                plain
+                @click="router.push({ name: 'BillManagement' })"
+                >查看更多</el-button
+            >
         </div>
         <Bills :bills="bills" />
     </div>

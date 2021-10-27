@@ -3,6 +3,7 @@ import SellerHome from "./SellerHome.vue"
 import ItemManagement from "./ItemManagement.vue"
 import BillManagement from "./BillManagement.vue"
 import SellerEntry from "./SellerEntry.vue"
+import ItemSearch from "./ItemSearch.vue"
 export const SELLER_PATH_PREFIX = "/seller"
 export const sellerRouter = [
     {
@@ -13,6 +14,12 @@ export const sellerRouter = [
                 path: "home",
                 component: SellerHome,
                 name: "SellerHome",
+            },
+            {
+                path: "item-management/search",
+                component: ItemSearch,
+                name: "ItemSearch",
+                props: true,
             },
             {
                 path: "item-management/:id",

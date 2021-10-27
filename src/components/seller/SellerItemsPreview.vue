@@ -1,13 +1,22 @@
 <script setup>
 import { ref } from "@vue/reactivity"
+import { watchEffect } from "vue-demi"
+import { useRouter } from "vue-router"
+import { useStore } from "vuex"
 import { fetchItemsBySellerId, hasMoreItems } from "../../utils/items.js"
 import { getSellerId } from "../../utils/userInfo.js"
 import { PLACEHOLDER_IMAGE_PATH } from "../constants.js"
 const itemInfo = ref({})
 const items = ref([])
-fetchItemsBySellerId(getSellerId(), 0, 8).then(res => {
-    itemInfo.value = res
-    items.value = res.value
+const router = useRouter()
+const store = useStore()
+watchEffect(() => {
+    if (store.state.sellerInfo.id !== -1) {
+        fetchItemsBySellerId(getSellerId(), 0, 8).then(res => {
+            itemInfo.value = res
+            items.value = res.value
+        })
+    }
 })
 </script>
 
@@ -15,7 +24,12 @@ fetchItemsBySellerId(getSellerId(), 0, 8).then(res => {
     <div class="items-preview-container">
         <div class="top-container">
             <h1 class="title">商品信息</h1>
-            <el-button type="success" plain>查看更多</el-button>
+            <el-button
+                type="success"
+                plain
+                @click="router.push({ name: 'ItemManagement' })"
+                >查看更多</el-button
+            >
         </div>
         <div class="item-container">
             <div v-for="(item, index) in items" :key="item.id" class="item">
@@ -24,6 +38,7 @@ fetchItemsBySellerId(getSellerId(), 0, 8).then(res => {
                     fit="cover"
                 />
                 <div
+                    @click="router.push({ name: 'ItemManagement' })"
                     v-if="hasMoreItems(itemInfo) && index == items.length - 1"
                     class="show-more"
                 >

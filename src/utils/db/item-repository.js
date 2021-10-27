@@ -103,3 +103,15 @@ export function deleteItem(id) {
     //  NOT FOUND
     return false
 }
+
+/**
+ * @param keyword type: str
+ */
+export function searchItemsByKeywordAndSellerId(sellerId, keyword) {
+    return getAllItemsBySellerId(sellerId).filter(item => {
+        return (
+            item.name.indexOf(keyword) !== -1 ||
+            item.detailedDescription.indexOf(keyword) !== -1
+        )
+    })
+}

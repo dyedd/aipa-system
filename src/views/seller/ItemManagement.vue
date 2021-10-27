@@ -9,24 +9,37 @@ import { hasMoreItems } from "../../utils/items.js"
 import { commonNavigator } from "../../utils/utils.js"
 import ItemEditor from "../../components/seller/ItemEditor.vue"
 import { ElMessage } from "element-plus"
+import { useRouter } from "vue-router"
+import { watch, watchEffect } from "vue-demi"
+import { useStore } from "vuex"
 
-const ITEMS_PER_PAGE = 2
+const ITEMS_PER_PAGE = 10
 const itemInfo = ref({}) // PageOfArrayOfBasicItemInfo
 const items = ref([]) // ArrayOfBasicItemInfo
 const newItemDialogVisible = ref(false)
+const store = useStore()
 
-const navigate = commonNavigator(
-    page => {
-        return fetchItemsBySellerId(getSellerId(), page, ITEMS_PER_PAGE)
-    },
-    0,
-    async value => {
-        itemInfo.value = value
-        items.value = value.value
-        return true
-    },
-    { init: true },
-)
+const navigate = ref()
+watchEffect(() => {
+    if (store.state.sellerInfo.id !== -1) {
+        navigate.value = commonNavigator(
+            page => {
+                return fetchItemsBySellerId(
+                    store.state.sellerInfo.id,
+                    page,
+                    ITEMS_PER_PAGE,
+                )
+            },
+            0,
+            async value => {
+                itemInfo.value = value
+                items.value = value.value
+                return true
+            },
+            { init: true },
+        )
+    }
+})
 function newItemConfirm(modifiableItem) {
     createItem(modifiableItem)
         .then(res => {
@@ -34,7 +47,7 @@ function newItemConfirm(modifiableItem) {
                 type: "success",
                 message: "添加成功",
             })
-            navigate(0, { absolute: true })
+            navigate.value(0, { absolute: true })
         })
         .catch(error => {
             ElMessage({
@@ -46,9 +59,17 @@ function newItemConfirm(modifiableItem) {
             newItemDialogVisible.value = false
         })
 }
+const router = useRouter()
 
 function newItemCancel(modifiableItem) {
     newItemDialogVisible.value = false
+}
+const searchKeyword = ref("")
+function handleSearch() {
+    router.push({
+        name: "ItemSearch",
+        params: { keyword: searchKeyword.value },
+    })
 }
 </script>
 
@@ -74,9 +95,19 @@ function newItemCancel(modifiableItem) {
                 </div>
             </div>
             <div class="search-box">
-                <el-input placeholder="搜一搜" class="search">
+                <el-input
+                    placeholder="搜一搜"
+                    class="search"
+                    v-on:keyup.enter="handleSearch()"
+                    v-model="searchKeyword"
+                >
                     <template #suffix>
-                        <Icon name="search" color size="1.6rem" />
+                        <Icon
+                            name="search"
+                            color
+                            size="1.6rem"
+                            @click="handleSearch()"
+                        />
                     </template>
                 </el-input>
             </div>
